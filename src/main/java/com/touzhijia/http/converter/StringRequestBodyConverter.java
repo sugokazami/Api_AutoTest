@@ -1,4 +1,4 @@
-package com.touzhijia.remote.converter;
+package com.touzhijia.http.converter;
 
 /**
  * Created by chenxl on 2018/3/1.

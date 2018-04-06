@@ -1,10 +1,7 @@
 package com.touzhijia;
 
-import com.touzhijia.remote.ApiService;
-import com.touzhijia.remote.RetrofitClient;
+import com.touzhijia.http.ApiService;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

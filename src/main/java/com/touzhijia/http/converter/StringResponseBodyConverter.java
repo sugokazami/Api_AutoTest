@@ -1,4 +1,4 @@
-package com.touzhijia.remote.converter;
+package com.touzhijia.http.converter;
 
 import okhttp3.ResponseBody;
 import retrofit2.Converter;

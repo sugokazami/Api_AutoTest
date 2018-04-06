@@ -1,4 +1,4 @@
-package com.touzhijia.remote.converter;
+package com.touzhijia.http.converter;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;

@@ -1,4 +1,4 @@
-package com.touzhijia.remote.Interceptors;
+package com.touzhijia.http.Interceptors;
 
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;

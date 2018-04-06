@@ -1,8 +1,6 @@
-package com.touzhijia.remote;
+package com.touzhijia.http;
 
 
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -10,8 +8,8 @@ import java.util.Map;
 
 /**
  * Created by chenxl on 2018/2/28.
- * 创建RetrofitManage服务
- * 包含Get、POST请求类型
+ * 创建Api服务服务
+ * 包含Get、POST、PUT、Delete请求类型
  */
 
 
