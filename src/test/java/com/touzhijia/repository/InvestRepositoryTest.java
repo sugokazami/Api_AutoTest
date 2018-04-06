@@ -3,7 +3,7 @@ package com.touzhijia.repository;
 import com.touzhijia.Listener.AssertionListener;
 import com.touzhijia.domain.entity.Invest;
 import com.touzhijia.domain.entity.InvestRecord;
-import com.touzhijia.utils.CheckUtil;
+import com.touzhijia.utils.CheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -36,7 +36,7 @@ public class InvestRepositoryTest extends AbstractTestNGSpringContextTests {
         String debtId = "20180330185" ;
         List<Invest> invests = investRepository.findByDebtId(debtId);
         List<InvestRecord> investRecords = investRecordRepository.findByDebtId(debtId);
-        CheckUtil.checkInvest(invests,investRecords);
+        CheckUtils.checkInvest(invests,investRecords);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class InvestRepositoryTest extends AbstractTestNGSpringContextTests {
         String debtId = "20180121844" ;
         List<Invest> invests = investRepository.findByRelationIdOrderByCreateAtDesc(debtId);
         List<InvestRecord> investRecords = investRecordRepository.findByDebtIdOrderByCreateAtDesc(debtId);
-        CheckUtil.checkInvest(invests,investRecords);
+        CheckUtils.checkInvest(invests,investRecords);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class InvestRepositoryTest extends AbstractTestNGSpringContextTests {
         String debtId = "T2018032900046" ;
         List<Invest> invests = investRepository.findByRelationId(debtId);
         List<InvestRecord> investRecords = investRecordRepository.findByDebtId(debtId);
-        CheckUtil.checkInvest(invests,investRecords);
+        CheckUtils.checkInvest(invests,investRecords);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class InvestRepositoryTest extends AbstractTestNGSpringContextTests {
         InvestRecord investRecord = investRecordRepository.findOne(Long.parseLong(id));
         List<Invest> invests = Arrays.asList(invest);
         List<InvestRecord> investRecords = Arrays.asList(investRecord);
-        CheckUtil.checkInvest(invests,investRecords);
+        CheckUtils.checkInvest(invests,investRecords);
         System.out.println(Invest.InvestChannel.AUTO.ordinal());
     }
 

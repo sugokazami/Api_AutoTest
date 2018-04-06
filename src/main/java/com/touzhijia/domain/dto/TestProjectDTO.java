@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 @Data
-public class TestProjectDto {
+public class TestProjectDTO {
 
     private Integer projectId ;
 

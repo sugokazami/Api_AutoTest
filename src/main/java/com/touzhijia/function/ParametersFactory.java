@@ -1,16 +1,12 @@
 package com.touzhijia.function;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.touzhijia.domain.entity.TestStep;
-import com.touzhijia.utils.StringUtil;
+import com.touzhijia.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -70,7 +66,7 @@ public class ParametersFactory {
      * @return
      */
     public static String replaceCommonParam(String param) {
-        if (StringUtil.isEmpty(param)) {
+        if (StringUtils.isEmpty(param)) {
             return "";
         }
 
@@ -93,7 +89,7 @@ public class ParametersFactory {
      * @return
      */
     public static String getCommonParam(String key) {
-        if (StringUtil.isNotEmpty(key) && parameterMap.containsKey(key)) {
+        if (StringUtils.isNotEmpty(key) && parameterMap.containsKey(key)) {
             return parameterMap.get(key);
         }
         return null;

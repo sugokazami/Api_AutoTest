@@ -4,7 +4,7 @@ package com.touzhijia.utils;
  * Created by chenxl on 2018/3/13.
  */
 
-public class StringUtil {
+public class StringUtils {
 
     /**
      * 判断字符串为空

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by chenxl on 2018/3/16.
  */
 @Data
-public class TestCaseDto {
+public class TestCaseDTO {
 
     /**
      * 测试用例编号

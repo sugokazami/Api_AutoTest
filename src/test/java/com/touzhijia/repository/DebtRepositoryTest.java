@@ -3,7 +3,7 @@ package com.touzhijia.repository;
 import com.touzhijia.Listener.AssertionListener;
 import com.touzhijia.domain.entity.Debt;
 import com.touzhijia.domain.entity.DebtBorrow;
-import com.touzhijia.utils.CheckUtil;
+import com.touzhijia.utils.CheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -32,12 +32,12 @@ public class DebtRepositoryTest extends AbstractTestNGSpringContextTests {
 //        对比单个用户的数据
 //        List<Debt> debts = debtRepository.findByStatusAndCategoryIdAndUid(-5, 8, "mall-srmNCFdmxu");
 //        List<DebtBorrow> debtBorrows = debtBorrowRepository.findByStatusAndTypeAndUid(-5, 8, "mall-srmNCFdmxu");
-//        CheckUtil.checkDebt(debts, debtBorrows);
+//        CheckUtils.checkDebt(debts, debtBorrows);
 
         //过滤debt和debt_borrow表中的符合条件的前十条数据来进行对比
         List<Debt> debts = debtRepository.findByStatusAndCategoryId(-5,8);
         List<DebtBorrow> debtBorrows = debtBorrowRepository.findByStatusAndType(-5, 8);
-        CheckUtil.checkDebt(debts, debtBorrows);
+        CheckUtils.checkDebt(debts, debtBorrows);
     }
 
     //状态为6的数据对比
@@ -48,7 +48,7 @@ public class DebtRepositoryTest extends AbstractTestNGSpringContextTests {
         List<Debt> debts = debtRepository.findByStatusSixAndCategoryId(6,8);
         List<DebtBorrow> debtBorrows = debtBorrowRepository.findByStatusSixAndType(6, 8);
 
-        CheckUtil.checkDebt(debts, debtBorrows);
+        CheckUtils.checkDebt(debts, debtBorrows);
     }
 
     //状态为9/10的数据对比
@@ -56,6 +56,6 @@ public class DebtRepositoryTest extends AbstractTestNGSpringContextTests {
     public void checkByStatusNineAndTen() throws Exception{
         List<Debt> debts = debtRepository.findByStatusTenAndCategoryId(10,8);
         List<DebtBorrow> debtBorrows = debtBorrowRepository.findByStatusNineAndType(9, 8);
-        CheckUtil.checkDebt(debts, debtBorrows);
+        CheckUtils.checkDebt(debts, debtBorrows);
     }
 }

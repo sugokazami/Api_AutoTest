@@ -1,6 +1,6 @@
 package com.touzhijia.function;
 
-import com.touzhijia.utils.StringUtil;
+import com.touzhijia.utils.StringUtils;
 
 /**
  * 返回值校验
@@ -21,7 +21,7 @@ public class ResponseChecker {
 
         boolean result = false;
 
-        if (StringUtil.isNotEmpty(json) && StringUtil.isEmpty(checkStr)) {
+        if (StringUtils.isNotEmpty(json) && StringUtils.isEmpty(checkStr)) {
 
             try {
                 if (checkStr.contains(">") || checkStr.contains("<") || checkStr.contains("=") || checkStr.contains(":")) {
@@ -50,7 +50,7 @@ public class ResponseChecker {
                     }
 
                     if (checkStr.contains("=")) {
-                        if (!checkStr.contains("\"") && StringUtil.getSubString(checkStr, ":") < 2) {
+                        if (!checkStr.contains("\"") && StringUtils.getSubString(checkStr, ":") < 2) {
                             String expression = checkStr.substring(0, checkStr.indexOf(">"));
                             double expectValue = Double.parseDouble(checkStr.substring(checkStr.indexOf(">") + 1, checkStr.length()));
                             double actualValue = Double.parseDouble(parse(json, expression));

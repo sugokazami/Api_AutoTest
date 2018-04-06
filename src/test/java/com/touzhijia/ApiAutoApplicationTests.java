@@ -1,6 +1,7 @@
 package com.touzhijia;
 
 import com.touzhijia.http.ApiService;
+import com.touzhijia.http.RetrofitManager;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +18,7 @@ public class ApiAutoApplicationTests {
 
 	@Test
 	public void testGet(){
-		ApiService apiService = RetrofitClient.getClient("http://a.io.tzj.net/", ApiService.class);
+		ApiService apiService = RetrofitManager.getInstance().create("http://a.io.tzj.net/", ApiService.class);
 		try {
 			Response<String> response = apiService.get("new.partner.svc/api/partner_applys/SLDyeDAYQ/verify").execute();
 		} catch (IOException e) {
@@ -28,10 +29,10 @@ public class ApiAutoApplicationTests {
 	@Test
 	public void testPost(){
 		String json = "{\"telephone\": \"13803623948\",\"password\": \"cxl111111\",\"device\": \"pc\",\"platform\": \"touzhijia\",\"clientIP\": \"10.255.1.112\"}" ;
-		ApiService apiService = RetrofitClient.getClient("http://a.io.tzj.net/", ApiService.class);
+		ApiService apiService = RetrofitManager.getInstance().create("http://a.io.tzj.net/", ApiService.class);
 
 		try {
-			Response<String> response = apiService.post("user_account.svc/api/accounts",json).execute();
+			Response<String> response = apiService.postWithRow("user_account.svc/api/accounts",json).execute();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -39,7 +40,7 @@ public class ApiAutoApplicationTests {
 
 	@Test
 	public void testGetDouBan(){
-		ApiService apiService = RetrofitClient.getClient("https://api.douban.com/", ApiService.class);
+		ApiService apiService = RetrofitManager.getInstance().create("https://api.douban.com/", ApiService.class);
 		try {
 			Response<String> response = apiService.get("v2/book/1220562").execute();
 		} catch (IOException e) {

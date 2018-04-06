@@ -7,7 +7,7 @@ import com.touzhijia.domain.enums.ResultEnum;
  * Created by chenxl on 2018/3/1.
  * 请求返回工具类
  */
-public class ResultUtil {
+public class ResultUtils {
 
     /**
      * 请求处理成功，有返回数据

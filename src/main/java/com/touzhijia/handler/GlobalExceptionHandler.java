@@ -3,7 +3,7 @@ package com.touzhijia.handler;
 import com.touzhijia.domain.Result;
 import com.touzhijia.domain.enums.ResultEnum;
 import com.touzhijia.exception.BusinessException;
-import com.touzhijia.utils.ResultUtil;
+import com.touzhijia.utils.ResultUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     public Result exceptionHandler(Exception exception){
         log.info("系统异常：{}", exception.getMessage());
         log.info("", exception);
-        return ResultUtil.error(ResultEnum.SYSTEM_ERROR.getCode(), ResultEnum.FAIL.getMessage() + ": " + exception.getMessage());
+        return ResultUtils.error(ResultEnum.SYSTEM_ERROR.getCode(), ResultEnum.FAIL.getMessage() + ": " + exception.getMessage());
     }
 
     /**
@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     public Result businessExceptionHandler(BusinessException exception){
         log.info("业务异常：{}", exception.getMessage());
         log.info("", exception);
-        return ResultUtil.error(exception.getCode(), exception.getMessage());
+        return ResultUtils.error(exception.getCode(), exception.getMessage());
     }
 
     /**
@@ -55,6 +55,6 @@ public class GlobalExceptionHandler {
     public Result validExceptionHandler(MethodArgumentNotValidException exception){
         log.info("数据校验异常：{}", exception.getMessage());
         log.info("", exception);
-        return ResultUtil.error(ResultEnum.FAIL.getCode(), exception.getBindingResult().getFieldError().getDefaultMessage());
+        return ResultUtils.error(ResultEnum.FAIL.getCode(), exception.getBindingResult().getFieldError().getDefaultMessage());
     }
 }

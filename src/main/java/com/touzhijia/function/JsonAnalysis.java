@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
-import com.touzhijia.utils.StringUtil;
+import com.touzhijia.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -51,7 +51,7 @@ public class JsonAnalysis {
     public Map<String, Object> parse(Object json, String parent) {
         String jsonStr = String.valueOf(json);
 
-        if (StringUtil.isEmpty(jsonStr)) {
+        if (StringUtils.isEmpty(jsonStr)) {
             log.info("【解析异常】：json为空");
             return null;
         }
