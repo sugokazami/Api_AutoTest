@@ -1,9 +1,7 @@
-package com.touzhijia.http.request;
+package com.touzhijia.http;
 
 import com.touzhijia.domain.dto.RequestDTO;
-import com.touzhijia.http.ApiService;
 import com.touzhijia.http.ApiServiceClient;
-import com.touzhijia.http.RetrofitManager;
 import com.touzhijia.utils.MapConverterUtils;
 import com.touzhijia.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -74,7 +72,7 @@ public class HttpRequestClient {
         try {
             ApiServiceClient.getApiService(baseUrl)
                     .get(request.getUrl())
-                    .execute() ;
+                    .execute();
         } catch (IOException e) {
             e.printStackTrace();
         }

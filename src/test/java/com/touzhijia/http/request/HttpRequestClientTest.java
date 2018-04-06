@@ -1,12 +1,11 @@
 package com.touzhijia.http.request;
 
 import com.touzhijia.domain.dto.RequestDTO;
+import com.touzhijia.http.HttpRequestClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by chenxl on 2018/4/1.
