@@ -1,6 +1,7 @@
 package com.touzhijia.utils;
 
 /**
+ * 断言
  * Created by chenxl on 2018/3/31.
  */
 import org.testng.Assert;
