@@ -2,6 +2,7 @@ package com.touzhijia.http.request;
 
 import com.touzhijia.domain.dto.RequestDTO;
 import com.touzhijia.http.ApiService;
+import com.touzhijia.http.ApiServiceClient;
 import com.touzhijia.http.RetrofitManager;
 import com.touzhijia.utils.MapConverterUtils;
 import com.touzhijia.utils.StringUtils;
@@ -71,10 +72,9 @@ public class HttpRequestClient {
         }
 
         try {
-            RetrofitManager.getInstance()
-                    .create(baseUrl, ApiService.class)
+            ApiServiceClient.getApiService(baseUrl)
                     .get(request.getUrl())
-                    .execute();
+                    .execute() ;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,8 +92,7 @@ public class HttpRequestClient {
             return;
         }
 
-        RetrofitManager.getInstance()
-                .create(baseUrl, ApiService.class)
+        ApiServiceClient.getApiService(baseUrl)
                 .get(request.getUrl(), MapConverterUtils.JsonToMap(request.getParam()));
     }
 
@@ -109,8 +108,7 @@ public class HttpRequestClient {
             return;
         }
 
-        RetrofitManager.getInstance()
-                .create(baseUrl, ApiService.class)
+        ApiServiceClient.getApiService(baseUrl)
                 .postWithForm(request.getUrl(), MapConverterUtils.JsonToMap(request.getParam()));
     }
 
@@ -126,8 +124,7 @@ public class HttpRequestClient {
             return;
         }
 
-        RetrofitManager.getInstance()
-                .create(baseUrl, ApiService.class)
+        ApiServiceClient.getApiService(baseUrl)
                 .postWithRow(request.getUrl(), request.getBody());
     }
 
@@ -143,8 +140,7 @@ public class HttpRequestClient {
             return;
         }
 
-        RetrofitManager.getInstance()
-                .create(baseUrl, ApiService.class)
+        ApiServiceClient.getApiService(baseUrl)
                 .put(request.getUrl(), request.getBody());
     }
 
@@ -160,8 +156,7 @@ public class HttpRequestClient {
             return;
         }
 
-        RetrofitManager.getInstance()
-                .create(baseUrl, ApiService.class)
+        ApiServiceClient.getApiService(baseUrl)
                 .delete(request.getUrl());
     }
 
@@ -177,8 +172,7 @@ public class HttpRequestClient {
             return;
         }
 
-        RetrofitManager.getInstance()
-                .create(baseUrl, ApiService.class)
+        ApiServiceClient.getApiService(baseUrl)
                 .delete(request.getUrl(), MapConverterUtils.JsonToMap(request.getParam()));
     }
 

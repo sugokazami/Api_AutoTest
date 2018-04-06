@@ -56,9 +56,4 @@ public class RetrofitManager {
                 .build()
                 .create(serviceClass);
     }
-
-
-    public ApiService getApiService(String baseUrl) {
-        return RetrofitManager.getInstance().create(baseUrl, ApiService.class);
-    }
 }
