@@ -8,11 +8,14 @@ import org.junit.Test;
 public class StringUtilTest {
     @Test
     public void isEmpty() throws Exception {
-
+        System.out.println(StringUtils.isEmpty(null));
+        System.out.println(StringUtils.isEmpty(""));
     }
 
     @Test
     public void isNotEmpty() throws Exception {
+        System.out.println(StringUtils.isNotEmpty(null));
+        System.out.println(StringUtils.isNotEmpty(""));
     }
 
     @Test

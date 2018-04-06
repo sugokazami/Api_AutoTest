@@ -7,6 +7,8 @@ import com.touzhijia.utils.MapConverterUtils;
 import com.touzhijia.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
+
 /**
  * 请求客户端，能够处理get、post、delete、put请求
  * Created by chenxl on 2018/4/1.
@@ -68,9 +70,14 @@ public class HttpRequestClient {
             return;
         }
 
-        RetrofitManager.getInstance()
-                .create(baseUrl, ApiService.class)
-                .get(request.getUrl());
+        try {
+            RetrofitManager.getInstance()
+                    .create(baseUrl, ApiService.class)
+                    .get(request.getUrl())
+                    .execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -174,4 +181,5 @@ public class HttpRequestClient {
                 .create(baseUrl, ApiService.class)
                 .delete(request.getUrl(), MapConverterUtils.JsonToMap(request.getParam()));
     }
+
 }

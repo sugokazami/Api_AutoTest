@@ -16,8 +16,8 @@ import java.util.Map;
 public class MapConverterTest {
 
     @Test
-    public void JsonToMap(){
-        String jsonStr = "{\"telephone\": \"13803623948\",\"password\": \"cxl111111\",\"device\": \"pc\",\"platform\": \"touzhijia\",\"clientIP\": \"10.255.1.112\"}" ;
+    public void JsonToMap() {
+        String jsonStr = "{\"telephone\": \"13803623948\",\"password\": \"cxl111111\",\"device\": \"pc\",\"platform\": \"touzhijia\",\"clientIP\": \"10.255.1.112\"}";
         Map<String, Object> map = MapConverterUtils.JsonToMap(jsonStr);
         System.out.println(map.get("password"));
     }

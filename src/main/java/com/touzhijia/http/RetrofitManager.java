@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit;
 public class RetrofitManager {
 
     //超时时间
-    private static final int DEFAULT_TIME_OUT = 20 ;
+    private static final int DEFAULT_TIME_OUT = 20;
 
-    private static final int DEFAULT_READ_TIME_OUT = 60 ;
+    private static final int DEFAULT_READ_TIME_OUT = 60;
 
     private OkHttpClient okHttpClient;
 
@@ -42,6 +42,7 @@ public class RetrofitManager {
 
     /**
      * 获得对应ApiService的实例
+     *
      * @param baseUrl
      * @param serviceClass
      * @param <T>
@@ -54,5 +55,10 @@ public class RetrofitManager {
                 .addConverterFactory(StringConverterFactory.create())
                 .build()
                 .create(serviceClass);
+    }
+
+
+    public ApiService getApiService(String baseUrl) {
+        return RetrofitManager.getInstance().create(baseUrl, ApiService.class);
     }
 }

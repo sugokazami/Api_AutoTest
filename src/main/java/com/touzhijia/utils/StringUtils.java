@@ -12,7 +12,7 @@ public class StringUtils {
      * @return
      */
     public static boolean isEmpty(String string){
-        return null == string && "".equals(string) ;
+        return null == string || "".equals(string) ;
     }
 
 
@@ -23,7 +23,7 @@ public class StringUtils {
      * @return
      */
     public static boolean isNotEmpty(String string){
-        return null != string || string.length() > 0 ;
+        return null != string && string.length() > 0 ;
     }
 
 
