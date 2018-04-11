@@ -212,5 +212,4 @@ public class HttpRequestClient {
     public ResponseDTO converter(Response<String> response) {
         return ResponseConverter.responseToResponseDTO(response);
     }
-
 }

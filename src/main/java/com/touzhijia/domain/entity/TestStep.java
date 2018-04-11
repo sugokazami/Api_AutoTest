@@ -54,6 +54,11 @@ public class TestStep implements Serializable{
     private String requestParams ;
 
     /**
+     * 接口请求Body
+     */
+    private String requestBody ;
+
+    /**
      * 是否传递返回值的参数
      */
     private Integer needTransfer ;
@@ -68,10 +73,6 @@ public class TestStep implements Serializable{
      */
     private String transferParams;
 
-    /**
-     * 验证响应码
-     */
-    private Integer verifyCode ;
 
     /**
      * 验证返回值

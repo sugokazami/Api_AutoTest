@@ -87,19 +87,20 @@ public class ResponseChecker {
 
     /**
      * 校验请求响应码
+     *
      * @param checkCode
      * @param status
      * @return
      */
     public boolean checkCode(Integer checkCode, Integer status) {
 
-        boolean result = false ;
+        boolean result = false;
 
-        if (checkCode !=null && status != null){
-            if (checkCode == status){
-                result = true ;
-            }else {
-                result = false ;
+        if (checkCode != null && status != null) {
+            if (checkCode == status) {
+                result = true;
+            } else {
+                result = false;
             }
         }
 

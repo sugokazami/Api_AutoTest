@@ -26,20 +26,21 @@ public class TestStepRepositoryTest {
         TestStep testStep = new TestStep();
         testStep.setStepName("担保人注册");
         testStep.setCaseId(1);
-        testStep.setRequestPath("http://a.io.tzj.net/user_account.svc/api/accounts");
-        testStep.setRequestMethod("POST");
-        testStep.setRequestParams("{\n" +
-                "  \"telephone\": \"13072753648\",\n" +
-                "  \"password\": \"cxl111111\",\n" +
-                "  \"device\": \"pc\",\n" +
-                "  \"platform\": \"touzhijia\",\n" +
-                "  \"clientIP\": \"10.255.1.112\"\n" +
+        testStep.setRequestPath("api/loans");
+        testStep.setRequestMethod("post with row");
+        testStep.setResponseBody("{\n" +
+                "    \"uid\":\"${b_username}\",\n" +
+                "    \"amount\":\"5000\",\n" +
+                "    \"borrowPeriod\":\"1\",\n" +
+                "    \"borrowPeriodUnit\":\"月\",\n" +
+                "    \"rate\":12,\n" +
+                "    \"description\":\"哈哈哈\",\n" +
+                "    \"loanType\":\"PERSON\",\n" +
+                "    \"repaymentType\":\"ONE_TIME\",\n" +
+                "    \"title\":\"债权申请\"\n" +
                 "}");
         testStep.setNeedTransfer(1);
         testStep.setNeedVerifyValue(1);
-        testStep.setTransferParams("telephone=$.telephone");
-        testStep.setVerifyCode(200);
-        testStep.setCheckString("$.telephone:13072753648");
         testStepRepository.save(testStep) ;
     }
 
