@@ -1,4 +1,4 @@
-package com.touzhijia.Listener;
+package com.touzhijia.Listeners;
 
 /**
  * Created by chenxl on 2018/3/31.
@@ -8,7 +8,7 @@ package com.touzhijia.Listener;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.touzhijia.utils.Assertion ;
+import com.touzhijia.utils.Assertion;
 
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
@@ -38,27 +38,27 @@ public class AssertionListener extends TestListenerAdapter {
 
     private int index = 0;
 
-    private void handleAssertion(ITestResult tr){
-        if(!Assertion.flag){
+    private void handleAssertion(ITestResult tr) {
+        if (!Assertion.flag) {
             Throwable throwable = tr.getThrowable();
-            if(throwable==null){
+            if (throwable == null) {
                 throwable = new Throwable();
             }
             StackTraceElement[] traces = throwable.getStackTrace();
-            StackTraceElement[] alltrace = new StackTraceElement[0];
+            StackTraceElement[] allTrace = new StackTraceElement[0];
             for (Error e : Assertion.errors) {
                 StackTraceElement[] errorTraces = e.getStackTrace();
                 StackTraceElement[] et = this.getKeyStackTrace(tr, errorTraces);
-                StackTraceElement[] message = new StackTraceElement[]{new StackTraceElement("message : "+e.getMessage()+" in method : ", tr.getMethod().getMethodName(), tr.getTestClass().getRealClass().getSimpleName(), index)};
+                StackTraceElement[] message = new StackTraceElement[]{new StackTraceElement("message : " + e.getMessage() + " in method : ", tr.getMethod().getMethodName(), tr.getTestClass().getRealClass().getSimpleName(), index)};
                 index = 0;
-                alltrace = this.merge(alltrace, message);
-                alltrace = this.merge(alltrace, et);
+                allTrace = this.merge(allTrace, message);
+                allTrace = this.merge(allTrace, et);
             }
-            if(traces!=null){
+            if (traces != null) {
                 traces = this.getKeyStackTrace(tr, traces);
-                alltrace = this.merge(alltrace, traces);
+                allTrace = this.merge(allTrace, traces);
             }
-            throwable.setStackTrace(alltrace);
+            throwable.setStackTrace(allTrace);
             tr.setThrowable(throwable);
             Assertion.flag = true;
             Assertion.errors.clear();
@@ -66,10 +66,10 @@ public class AssertionListener extends TestListenerAdapter {
         }
     }
 
-    private StackTraceElement[] getKeyStackTrace(ITestResult tr, StackTraceElement[] stackTraceElements){
+    private StackTraceElement[] getKeyStackTrace(ITestResult tr, StackTraceElement[] stackTraceElements) {
         List<StackTraceElement> ets = new ArrayList<StackTraceElement>();
         for (StackTraceElement stackTraceElement : stackTraceElements) {
-            if(stackTraceElement.getClassName().equals(tr.getTestClass().getName())){
+            if (stackTraceElement.getClassName().equals(tr.getTestClass().getName())) {
                 ets.add(stackTraceElement);
                 index = stackTraceElement.getLineNumber();
             }
@@ -81,13 +81,13 @@ public class AssertionListener extends TestListenerAdapter {
         return et;
     }
 
-    private StackTraceElement[] merge(StackTraceElement[] traces1, StackTraceElement[] traces2){
-        StackTraceElement[] ste = new StackTraceElement[traces1.length+traces2.length];
+    private StackTraceElement[] merge(StackTraceElement[] traces1, StackTraceElement[] traces2) {
+        StackTraceElement[] ste = new StackTraceElement[traces1.length + traces2.length];
         for (int i = 0; i < traces1.length; i++) {
             ste[i] = traces1[i];
         }
         for (int i = 0; i < traces2.length; i++) {
-            ste[traces1.length+i] = traces2[i];
+            ste[traces1.length + i] = traces2[i];
         }
         return ste;
     }

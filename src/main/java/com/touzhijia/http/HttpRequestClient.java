@@ -1,10 +1,11 @@
 package com.touzhijia.http;
 
+import com.touzhijia.converter.ResponseConverter;
 import com.touzhijia.domain.dto.RequestDTO;
-import com.touzhijia.http.ApiServiceClient;
-import com.touzhijia.utils.MapConverterUtils;
+import com.touzhijia.domain.dto.ResponseDTO;
 import com.touzhijia.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import retrofit2.Response;
 
 import java.io.IOException;
 
@@ -18,7 +19,7 @@ public class HttpRequestClient {
 
     private static final String GET = "get";
 
-    private static final String POST_WITH_ROW = "post with ROW";
+    private static final String POST_WITH_ROW = "post with row";
 
     private static final String POST_WITH_PARAMS = "post with params";
 
@@ -32,29 +33,38 @@ public class HttpRequestClient {
      * @param baseUrl
      * @param request
      */
-    public void execute(String baseUrl, RequestDTO request) {
-        if (GET.equals(request.getMethod())) {
-            if (StringUtils.isNotEmpty(request.getParam())) {
-                this.executeGetWithParams(baseUrl, request);
+    public ResponseDTO execute(String baseUrl, RequestDTO request) {
+        ResponseDTO responseDTO = null;
+        try {
+            if (GET.equals(request.getMethod())) {
+                if (request.getParams() != null) {
+                    responseDTO = this.executeGetWithParams(baseUrl, request);
+                } else {
+                    responseDTO = this.executeGet(baseUrl, request);
+                }
+            } else if (POST_WITH_ROW.equals(request.getMethod())) {
+                responseDTO = this.executePostWithRow(baseUrl, request);
+            } else if (POST_WITH_PARAMS.equals(request.getMethod())) {
+                responseDTO = this.executePostWithParams(baseUrl, request);
+            } else if (DELETE.equals(request.getMethod())) {
+                if (request.getParams() != null) {
+                    responseDTO = this.executeDeleteWithParams(baseUrl, request);
+                } else {
+                    responseDTO = this.executeDelete(baseUrl, request);
+                }
+            } else if (PUT.equals(request.getMethod())) {
+                responseDTO = this.executePut(baseUrl, request);
             } else {
-                this.executeGet(baseUrl, request);
+                log.info("未知的请求方式");
+                throw new RuntimeException("未知的请求方式");
             }
-        } else if (POST_WITH_ROW.equals(request.getMethod())) {
-            this.executePostWithRow(baseUrl, request);
-        } else if (POST_WITH_PARAMS.equals(request.getMethod())) {
-            this.executePostWithParams(baseUrl, request);
-        } else if (DELETE.equals("delete")) {
-            if (StringUtils.isNotEmpty(request.getParam())) {
-                this.executeDeleteWithParams(baseUrl, request);
-            } else {
-                this.executeDelete(baseUrl, request);
-            }
-        } else if (PUT.equals("put")) {
-            this.executePut(baseUrl, request);
-        } else {
-            log.info("未知的请求方式");
-            throw new RuntimeException("未知的请求方式");
+
+        } catch (IOException e) {
+            log.info("请求执行失败,请求路径:{},请求方法:{},异常信息:{}", request.getUrl(), request.getMethod(), e.getMessage());
+            e.printStackTrace();
         }
+
+        return responseDTO;
     }
 
 
@@ -64,18 +74,17 @@ public class HttpRequestClient {
      * @param baseUrl
      * @param request
      */
-    public void executeGet(String baseUrl, RequestDTO request) {
+    public ResponseDTO executeGet(String baseUrl, RequestDTO request) throws IOException {
+
         if (StringUtils.isEmpty(baseUrl) && request == null) {
-            return;
+            return null;
         }
 
-        try {
-            ApiServiceClient.getApiService(baseUrl)
-                    .get(request.getUrl())
-                    .execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Response<String> response = ApiServiceClient.getApiService(baseUrl)
+                .get(request.getUrl())
+                .execute();
+
+        return ResponseConverter.responseToResponseDTO(response);
     }
 
 
@@ -85,13 +94,16 @@ public class HttpRequestClient {
      * @param baseUrl
      * @param request
      */
-    public void executeGetWithParams(String baseUrl, RequestDTO request) {
+    public ResponseDTO executeGetWithParams(String baseUrl, RequestDTO request) throws IOException {
         if (StringUtils.isEmpty(baseUrl) && request == null) {
-            return;
+            return null;
         }
 
-        ApiServiceClient.getApiService(baseUrl)
-                .get(request.getUrl(), MapConverterUtils.JsonToMap(request.getParam()));
+        Response<String> response = ApiServiceClient.getApiService(baseUrl)
+                .get(request.getUrl(), request.getParams())
+                .execute();
+
+        return this.converter(response);
     }
 
 
@@ -101,13 +113,16 @@ public class HttpRequestClient {
      * @param baseUrl
      * @param request
      */
-    public void executePostWithParams(String baseUrl, RequestDTO request) {
+    public ResponseDTO executePostWithParams(String baseUrl, RequestDTO request) throws IOException {
         if (StringUtils.isEmpty(baseUrl) && request == null) {
-            return;
+            return null;
         }
 
-        ApiServiceClient.getApiService(baseUrl)
-                .postWithForm(request.getUrl(), MapConverterUtils.JsonToMap(request.getParam()));
+        Response<String> response = ApiServiceClient.getApiService(baseUrl)
+                .postWithForm(request.getUrl(), request.getParams())
+                .execute();
+
+        return this.converter(response);
     }
 
 
@@ -117,13 +132,17 @@ public class HttpRequestClient {
      * @param baseUrl
      * @param request
      */
-    public void executePostWithRow(String baseUrl, RequestDTO request) {
+    public ResponseDTO executePostWithRow(String baseUrl, RequestDTO request) throws IOException {
         if (StringUtils.isEmpty(baseUrl) && request == null) {
-            return;
+            return null;
         }
 
-        ApiServiceClient.getApiService(baseUrl)
-                .postWithRow(request.getUrl(), request.getBody());
+        Response<String> response = ApiServiceClient.getApiService(baseUrl)
+                .postWithRow(request.getUrl(), request.getBody())
+                .execute();
+
+        return this.converter(response);
+
     }
 
 
@@ -133,13 +152,16 @@ public class HttpRequestClient {
      * @param baseUrl
      * @param request
      */
-    public void executePut(String baseUrl, RequestDTO request) {
+    public ResponseDTO executePut(String baseUrl, RequestDTO request) throws IOException {
         if (StringUtils.isEmpty(baseUrl) && request == null) {
-            return;
+            return null;
         }
 
-        ApiServiceClient.getApiService(baseUrl)
-                .put(request.getUrl(), request.getBody());
+        Response<String> response = ApiServiceClient.getApiService(baseUrl)
+                .put(request.getUrl(), request.getBody())
+                .execute();
+
+        return this.converter(response);
     }
 
 
@@ -149,13 +171,16 @@ public class HttpRequestClient {
      * @param baseUrl
      * @param request
      */
-    public void executeDelete(String baseUrl, RequestDTO request) {
+    public ResponseDTO executeDelete(String baseUrl, RequestDTO request) throws IOException {
         if (StringUtils.isEmpty(baseUrl) && request == null) {
-            return;
+            return null;
         }
 
-        ApiServiceClient.getApiService(baseUrl)
-                .delete(request.getUrl());
+        Response<String> response = ApiServiceClient.getApiService(baseUrl)
+                .delete(request.getUrl())
+                .execute();
+
+        return this.converter(response);
     }
 
 
@@ -165,13 +190,27 @@ public class HttpRequestClient {
      * @param baseUrl
      * @param request
      */
-    public void executeDeleteWithParams(String baseUrl, RequestDTO request) {
+    public ResponseDTO executeDeleteWithParams(String baseUrl, RequestDTO request) throws IOException {
         if (StringUtils.isEmpty(baseUrl) && request == null) {
-            return;
+            return null;
         }
 
-        ApiServiceClient.getApiService(baseUrl)
-                .delete(request.getUrl(), MapConverterUtils.JsonToMap(request.getParam()));
+        Response<String> response = ApiServiceClient.getApiService(baseUrl)
+                .delete(request.getUrl(), request.getParams())
+                .execute();
+
+        return this.converter(response);
+    }
+
+
+    /**
+     * 将Response转换为ResponseDTO
+     *
+     * @param response
+     * @return
+     */
+    public ResponseDTO converter(Response<String> response) {
+        return ResponseConverter.responseToResponseDTO(response);
     }
 
 }

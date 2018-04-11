@@ -2,7 +2,7 @@ package com.touzhijia.test;
 
 import com.touzhijia.utils.Assertion;
 import org.testng.annotations.Listeners;
-import com.touzhijia.Listener.AssertionListener ;
+import com.touzhijia.Listeners.AssertionListener ;
 import org.testng.annotations.Test;
 
 /**
