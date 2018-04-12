@@ -60,8 +60,9 @@ public class HttpRequestClient {
             }
 
         } catch (IOException e) {
-            log.info("请求执行失败,请求路径:{},请求方法:{},异常信息:{}", request.getUrl(), request.getMethod(), e.getMessage());
+            log.info("请求执行异常,请求路径:{},请求方法:{},异常信息:{}", request.getUrl(), request.getMethod(), e.getMessage());
             e.printStackTrace();
+            throw new RuntimeException("请求执行异常");
         }
 
         return responseDTO;

@@ -90,9 +90,9 @@ public class ParametersFactory {
      */
     public static String getCommonParam(String key) {
         if (StringUtils.isNotEmpty(key) && getParameterMap().containsKey(key)) {
-            return getParameterMap().get(key);
+            return getParameterMap().get(key) == null ? "" : getParameterMap().get(key);
         }
-        return null;
+        return "";
     }
 
     /**

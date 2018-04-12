@@ -31,10 +31,11 @@ public class ResponseConverter {
             try {
                 responseDTO.setBody(response.errorBody().string());
             } catch (IOException e) {
-                log.info("请求失败错误信息获取失败,{}",e.getMessage());
+                log.info("请求错误信息IO异常，错误信息,{}",e.getMessage());
                 e.printStackTrace();
+                throw new RuntimeException("请求错误信息IO异常") ;
             }
-            log.info("请求失败 --- > 错误码:{},  错误信息:{}",responseDTO.getCode(),responseDTO.getBody());
+            log.info("请求错误 --- > 错误码:{},  错误信息:{}",responseDTO.getCode(),responseDTO.getBody());
         }
 
         return responseDTO;
