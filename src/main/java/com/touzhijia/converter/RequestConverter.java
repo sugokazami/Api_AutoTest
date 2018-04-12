@@ -7,7 +7,8 @@ import com.touzhijia.utils.MapConverterUtils;
 import com.touzhijia.utils.StringUtils;
 
 /**
- * 请求转换类
+ * 请求转换类 TestStep --> RequestDTO
+ * 在该类中处理请求参数替换
  * Created by chenxl on 2018/4/6.
  */
 

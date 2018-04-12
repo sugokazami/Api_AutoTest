@@ -21,7 +21,7 @@ public class MapConverterUtils {
 
         if (StringUtils.isNotEmpty(jsonStr)) {
             try {
-                map = JSON.parseObject(jsonStr,map.getClass()) ;
+                map = JSON.parseObject(jsonStr, map.getClass());
             } catch (Exception e) {
                 logger.info("把Json字符串转换成Map出错", e);
                 return map;

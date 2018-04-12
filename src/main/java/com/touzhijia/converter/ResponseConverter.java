@@ -36,6 +36,7 @@ public class ResponseConverter {
                 throw new RuntimeException("请求错误信息IO异常") ;
             }
             log.info("请求错误 --- > 错误码:{},  错误信息:{}",responseDTO.getCode(),responseDTO.getBody());
+            throw new RuntimeException("失败原因:" + responseDTO.getBody()) ;
         }
 
         return responseDTO;
