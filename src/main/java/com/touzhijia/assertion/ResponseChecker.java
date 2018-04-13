@@ -1,15 +1,16 @@
-package com.touzhijia.function;
+package com.touzhijia.assertion;
 
+import com.touzhijia.function.JsonAnalysis;
 import com.touzhijia.utils.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 返回值校验
  * Created by chenxl on 2018/3/16.
  */
 
+@Slf4j
 public class ResponseChecker {
-
-
     /**
      * 校验返回值
      *
@@ -21,7 +22,7 @@ public class ResponseChecker {
 
         boolean result = false;
 
-        if (StringUtils.isNotEmpty(json) && StringUtils.isEmpty(checkStr)) {
+        if (StringUtils.isNotEmpty(json) && StringUtils.isNotEmpty(checkStr) && checkStr.contains("$.")) {
 
             try {
                 if (checkStr.contains(">") || checkStr.contains("<") || checkStr.contains("=") || checkStr.contains(":")) {
@@ -51,27 +52,31 @@ public class ResponseChecker {
 
                     if (checkStr.contains("=")) {
                         if (!checkStr.contains("\"") && StringUtils.getSubString(checkStr, ":") < 2) {
-                            String expression = checkStr.substring(0, checkStr.indexOf(">"));
-                            double expectValue = Double.parseDouble(checkStr.substring(checkStr.indexOf(">") + 1, checkStr.length()));
+                            String expression = checkStr.substring(0, checkStr.indexOf("="));
+                            double expectValue = Double.parseDouble(checkStr.substring(checkStr.indexOf("=") + 1, checkStr.length()));
                             double actualValue = Double.parseDouble(parse(json, expression));
 
                             if (actualValue == expectValue) {
                                 result = true;
+                                log.info("实际结果:{},期望结果:{}", actualValue, expectValue);
                             } else {
                                 result = false;
+                                log.info("实际结果:{},期望结果:{}", actualValue, expectValue);
                             }
                         }
                     }
 
                     if (checkStr.contains(":")) {
-                        String expression = checkStr.substring(0, checkStr.indexOf(">"));
-                        String expectValue = checkStr.substring(checkStr.indexOf(">") + 1, checkStr.length());
+                        String expression = checkStr.substring(0, checkStr.indexOf(":"));
+                        String expectValue = checkStr.substring(checkStr.indexOf(":") + 1, checkStr.length());
                         String actualValue = parse(json, expression);
 
                         if (actualValue.equals(expectValue)) {
                             result = true;
+                            log.info("实际结果:{},期望结果:{}", actualValue, expectValue);
                         } else {
                             result = false;
+                            log.info("实际结果:{},期望结果:{}", actualValue, expectValue);
                         }
                     }
                 }
@@ -80,6 +85,9 @@ public class ResponseChecker {
                 e.printStackTrace();
                 result = false;
             }
+        } else {
+            log.info("请求结果验证失败：期望结果为空或期望结果获取失败~~~");
+            result = false;
         }
         return result;
     }
@@ -110,12 +118,7 @@ public class ResponseChecker {
 
     public String parse(String json, String expression) {
         JsonAnalysis jsonAnalysis = new JsonAnalysis();
-        String parse;
-        if (json.contains("$.")) {
-            parse = jsonAnalysis.JSONPath(json, expression);
-            return parse;
-        } else {
-            return json;
-        }
+
+        return jsonAnalysis.JSONPath(json, expression);
     }
 }

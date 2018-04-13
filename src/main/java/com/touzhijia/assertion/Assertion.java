@@ -1,0 +1,31 @@
+package com.touzhijia.assertion;
+
+import com.touzhijia.domain.entity.TestStep;
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * 返回值校验类
+ * Created by chenxl on 2018/4/13.
+ */
+
+@Slf4j
+public class Assertion {
+
+    public static boolean assertEquals(TestStep testStep) {
+        ResponseChecker checker = new ResponseChecker();
+        String[] checkStrings = testStep.getCheckString().split(",");
+        boolean result = true;
+        for (int i = 0; i < checkStrings.length; i++) {
+            boolean checkValue = checker.checkValue(checkStrings[i], testStep.getResponseBody());
+            if (checkValue) {
+                log.info("【检查点" + (i + 1) + "】验证成功");
+            } else {
+                log.info("【检查点" + (i + 1) + "】验证失败");
+            }
+            if (checkValue == false) {
+                result = false;
+            }
+        }
+        return result;
+    }
+}

@@ -1,6 +1,7 @@
 package com.touzhijia.repository;
 
 import com.touzhijia.domain.entity.TestCase;
+import com.touzhijia.domain.entity.TestStep;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,7 +52,7 @@ public class TestCaseRepositoryTest {
         List<TestCase> testCaseLists = testCaseRepository.getByProjectId(1001);
         assertNotEquals(0,testCaseLists.size());
         for (TestCase testCase: testCaseLists) {
-            testCase.setTestResult(1);
+            testCase.setTestResult(TestStep.TestResult.PASS);
             testCaseRepository.save(testCase) ;
         }
     }

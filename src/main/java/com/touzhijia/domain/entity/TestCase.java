@@ -7,6 +7,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import com.touzhijia.domain.entity.TestStep.TestResult ;
+
 
 /**
  * Created by chenxl on 2018/3/1.
@@ -50,7 +52,7 @@ public class TestCase implements Serializable{
     /**
      * 测试结果
      */
-    private Integer testResult ;
+    private TestResult testResult ;
 
     /**
      * 创建时间
@@ -61,6 +63,5 @@ public class TestCase implements Serializable{
      * 更新时间
      */
     private Date updateTime ;
-
 
 }
