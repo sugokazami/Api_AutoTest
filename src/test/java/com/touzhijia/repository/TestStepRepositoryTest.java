@@ -44,7 +44,10 @@ public class TestStepRepositoryTest {
                 "}");
         testStep1.setNeedTransfer(true);
         testStep1.setTransferParams("loanId=$.id");
+        testStep1.setNeedVerifyValue(true);
+        testStep1.setCheckString("$.uid:mall-LEnLvfiEDa,$.title:债权申请,$.amount=10");
         testStepRepository.save(testStep1);
+
 
 
         TestStep testStep2 = new TestStep();
@@ -55,7 +58,10 @@ public class TestStepRepositoryTest {
         testStep2.setRequestBody("{\"loanId\":\"${loanId}\",\"categoryId\":8}");
         testStep2.setNeedTransfer(true);
         testStep2.setTransferParams("debtId=$.id");
+        testStep2.setNeedVerifyValue(true);
+        testStep2.setCheckString("$.categoryId=8,$.amount=10,$.repayAmount=10.06");
         testStepRepository.save(testStep2);
+
 
 
         TestStep testStep3 = new TestStep();
@@ -64,7 +70,11 @@ public class TestStepRepositoryTest {
         testStep3.setRequestPath("core.bid.svc/api/debts/${debtId}/verify");
         testStep3.setRequestMethod("put");
         testStep3.setRequestBody("{\"operator\":\"system\",\"description\":\"test\"}");
+        testStep3.setNeedVerifyValue(true);
+        testStep3.setCheckString("$.categoryLabel:天猫,$.repayInterestAmount=0.06");
         testStepRepository.save(testStep3);
+
+
 
         TestStep testStep4 = new TestStep();
         testStep4.setStepName("上线");
@@ -72,6 +82,8 @@ public class TestStepRepositoryTest {
         testStep4.setRequestPath("core.bid.svc/api/debts/${debtId}/online");
         testStep4.setRequestMethod("put");
         testStep4.setRequestBody("{\"operator\":\"system\",\"description\":\"test\"}");
+        testStep4.setNeedVerifyValue(true);
+        testStep4.setCheckString("$.categoryLabel:天猫,$.repayInterestAmount=0.06");
         testStepRepository.save(testStep4) ;
     }
 

@@ -92,6 +92,9 @@ public class TestStep implements Serializable {
      */
     private TestResult testResult;
 
+
+    private String checkList ;
+
     /**
      * 创建时间
      */

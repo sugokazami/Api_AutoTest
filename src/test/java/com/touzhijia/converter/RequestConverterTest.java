@@ -5,11 +5,9 @@ import com.touzhijia.domain.dto.RequestDTO;
 import com.touzhijia.domain.dto.ResponseDTO;
 import com.touzhijia.domain.entity.TestStep;
 import com.touzhijia.function.ParametersFactory;
-import com.touzhijia.assertion.ResponseChecker;
 import com.touzhijia.http.HttpRequestClient;
 import com.touzhijia.repository.TestStepRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +29,10 @@ import java.util.Map;
 public class RequestConverterTest {
     @Autowired
     private TestStepRepository testStepRepository;
+
+    private int pass = 0;
+
+    private int fail = 0;
 
     @Test
     public void testStepToRequestDTO() throws Exception {
@@ -86,6 +88,7 @@ public class RequestConverterTest {
                 testStep.setResponseBody(responseDTO.getBody());
                 testStep.setTestResult(TestResult.PASS);
             } catch (RuntimeException e) {
+                fail++;
                 log.info("测试失败:{}", testStep.getStepName());
                 testStep.setTestResult(TestResult.False);
             }
@@ -110,14 +113,17 @@ public class RequestConverterTest {
             if (Assertion.assertEquals(testStep)) {
                 log.info("【测试成功】");
                 testStep.setTestResult(TestResult.PASS);
+                pass++;
             } else {
                 log.info("【测试失败】");
                 testStep.setTestResult(TestResult.False);
+                fail++;
             }
 
         } catch (RuntimeException e) {
             log.info("【测试失败】:{}", testStep.getStepName());
             testStep.setTestResult(TestResult.False);
+            fail++;
         }
         testStepRepository.save(testStep);
         ParametersFactory.saveCommonParam(testStep);
@@ -128,7 +134,7 @@ public class RequestConverterTest {
     public void testCheck02() throws Exception {
         String baseUrl = "http://a.io.tzj.net/";
         List<TestStep> testSteps = testStepRepository.findAll();
-        for (int i = 0; i<testSteps.size(); i++) {
+        for (int i = 0; i < testSteps.size(); i++) {
             try {
                 RequestDTO requestDTO = RequestConverter.testStepToRequestDTO(testSteps.get(i));
                 HttpRequestClient httpRequestClient = new HttpRequestClient();
@@ -136,20 +142,25 @@ public class RequestConverterTest {
                 testSteps.get(i).setResponseBody(responseDTO.getBody());
                 boolean result = Assertion.assertEquals(testSteps.get(i));
                 if (result) {
-                    log.info("【步骤" + (i+1) + "测试成功】");
+                    log.info("【步骤" + (i + 1) + "测试成功】");
                     testSteps.get(i).setTestResult(TestResult.PASS);
+                    pass++;
                 } else {
-                    log.info("【步骤" + (i+1) + "测试失败】");
+                    log.info("【步骤" + (i + 1) + "测试失败】");
                     testSteps.get(i).setTestResult(TestResult.False);
+                    fail++;
                 }
 
             } catch (RuntimeException e) {
-                log.info("【步骤" + (i+1) + "测试失败】:{}", testSteps.get(i).getStepName());
+                log.info("【步骤" + (i + 1) + "测试失败】:{}", testSteps.get(i).getStepName());
                 testSteps.get(i).setTestResult(TestResult.False);
+                pass++;
             }
             testStepRepository.save(testSteps.get(i));
             ParametersFactory.saveCommonParam(testSteps.get(i));
             log.info(ParametersFactory.getParameterMap().toString());
+            log.info(String.valueOf(pass));
+            log.info(String.valueOf(fail));
         }
     }
 }

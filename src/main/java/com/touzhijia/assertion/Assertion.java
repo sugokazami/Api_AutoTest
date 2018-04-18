@@ -1,6 +1,7 @@
 package com.touzhijia.assertion;
 
 import com.touzhijia.domain.entity.TestStep;
+import com.touzhijia.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -12,7 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 public class Assertion {
 
     public static boolean assertEquals(TestStep testStep) {
-        ResponseChecker checker = new ResponseChecker();
+
+        if (StringUtils.isEmpty(testStep.getCheckString())) {
+            // TODO: 2018/4/13
+        }
+
+        ResponseChecker checker = new ResponseChecker(testStep);
         String[] checkStrings = testStep.getCheckString().split(",");
         boolean result = true;
         for (int i = 0; i < checkStrings.length; i++) {
