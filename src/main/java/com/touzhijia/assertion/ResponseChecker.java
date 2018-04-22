@@ -6,6 +6,7 @@ import com.touzhijia.domain.entity.TestStep;
 import com.touzhijia.function.JsonAnalysis;
 import com.touzhijia.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 
 /**
@@ -20,10 +21,6 @@ public class ResponseChecker {
     private TestStep testStep;
 
     private ArrayList<CheckBean> checkList = new ArrayList<>();
-
-    public ResponseChecker() {
-
-    }
 
     public ResponseChecker(TestStep testStep) {
         this.testStep = testStep;

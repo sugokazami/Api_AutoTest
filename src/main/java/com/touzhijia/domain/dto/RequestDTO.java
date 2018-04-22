@@ -5,7 +5,8 @@ import lombok.Data;
 
 import java.util.Map;
 
-/**HTTP请求类
+/**
+ * HTTP请求类
  * Created by chenxl on 2018/4/6.
  */
 
@@ -15,32 +16,32 @@ public class RequestDTO {
     /**
      * API请求URL
      */
-    private String url ;
+    private String url;
 
 
     /**
      * API请求方法
      */
-    private String method ;
+    private String method;
 
 
     /**
      * API请求正文：params
      * application/x-www-form-urlencoded
      */
-    private Map<String, Object>  params;
+    private Map<String, Object> params;
 
 
     /**
      * API请求正文：body
      * application/json
      */
-    private String body ;
+    private String body;
 
 
     /**
      * API请求头信息
      */
-    private String headers;
+    private Map<String, Object> headers;
 
 }

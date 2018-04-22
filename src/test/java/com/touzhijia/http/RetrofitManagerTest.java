@@ -16,15 +16,15 @@ import java.io.IOException;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class RetrofitManagerTest {
-    @Test
-    public void testGet(){
-        ApiService apiService = RetrofitManager.getInstance().create("http://a.io.tzj.net/", ApiService.class);
-        try {
-            Response<String> response = apiService.get("new.partner.svc/api/partner_applys/SLDyeDAYQ/verify").execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void testGet(){
+//        ApiService apiService = RetrofitManager.getInstance().create("http://a.io.tzj.net/", ApiService.class);
+//        try {
+//            Response<String> response = apiService.get("new.partner.svc/api/partner_applys/SLDyeDAYQ/verify").execute();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Test
     public void testPost(){
@@ -38,14 +38,14 @@ public class RetrofitManagerTest {
         }
     }
 
-    @Test
-    public void testGetDouBan(){
-        ApiService apiService = RetrofitManager.getInstance().create("https://api.douban.com/", ApiService.class);
-        try {
-            Response<String> response = apiService.get("v2/book/1220562").execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void testGetDouBan(){
+//        ApiService apiService = RetrofitManager.getInstance().create("https://api.douban.com/", ApiService.class);
+//        try {
+//            Response<String> response = apiService.get("v2/book/1220562").execute();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }

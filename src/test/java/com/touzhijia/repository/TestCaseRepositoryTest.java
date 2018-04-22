@@ -52,7 +52,6 @@ public class TestCaseRepositoryTest {
         List<TestCase> testCaseLists = testCaseRepository.getByProjectId(1001);
         assertNotEquals(0,testCaseLists.size());
         for (TestCase testCase: testCaseLists) {
-            testCase.setTestResult(TestStep.TestResult.PASS);
             testCaseRepository.save(testCase) ;
         }
     }

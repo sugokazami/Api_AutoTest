@@ -89,8 +89,43 @@ public class TestStepRepositoryTest {
 
     @Test
     public void getByCaseId() throws Exception {
+        TestStep testStep1 = new TestStep();
+        testStep1.setStepName("登录");
+        testStep1.setCaseId(3);
+        testStep1.setRequestPath("user_account.svc/api/accounts");
+        testStep1.setRequestMethod("post with row");
+        testStep1.setRequestBody("{\"telephone\":\"13072758002\",\"password\":\"cxl111111\",\"device\":\"pc\",\"platform\":\"touzhijia\",\"clientIP\":\"10.255.1.112\"}");
+        testStep1.setNeedTransfer(true);
+        testStep1.setTransferParams("username=$.username");
+        testStep1.setNeedVerifyValue(true);
+        testStep1.setCheckString("$.password:cxl111111");
+        testStepRepository.save(testStep1);
 
 
+
+        TestStep testStep2 = new TestStep();
+        testStep2.setStepName("用户登录");
+        testStep2.setCaseId(3);
+        testStep2.setRequestPath("v3/user/login");
+        testStep2.setRequestMethod("post with row");
+        testStep2.setRequestBody("{\"username\":\"${username}\",\"password\":\"cxl111111\"}");
+        testStep2.setNeedTransfer(true);
+        testStep2.setTransferParams("X-Auth-Token=$.token");
+        testStep2.setNeedVerifyValue(true);
+        testStep2.setCheckString("$.uid:${username}");
+        testStepRepository.save(testStep2);
+
+
+
+        TestStep testStep3 = new TestStep();
+        testStep3.setStepName("理财券列表");
+        testStep3.setCaseId(3);
+        testStep3.setRequestPath("v3/account/vouchers");
+        testStep3.setRequestMethod("get");
+        testStep3.setRequestHeaders("X-Auth-Token:${X-Auth-Token}");
+        testStep3.setNeedVerifyValue(true);
+        testStep3.setCheckString("$.totalSize=5");
+        testStepRepository.save(testStep3);
     }
 
 }

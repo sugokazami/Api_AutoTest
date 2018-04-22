@@ -17,13 +17,19 @@ public interface ApiService {
 
     //处理get请求
     @GET("{url}")
-    Call<String> get(@Path("url") String url);
+    Call<String> get(@Path("url") String url,
+                     @HeaderMap Map<String,Object> headers);
 
 
     //处理有一个或多个参数的get请求
     @GET("{url}")
     Call<String> get(@Path("url") String url,
-                     @QueryMap Map<String, Object> params);
+                     @QueryMap Map<String, Object> params,
+                     @HeaderMap Map<String,Object> headers);
+
+//    @GET("{url}")
+//    Call<String> getWithHeader(@Path("url") String url,
+//                     @HeaderMap Map<String,Object> headers) ;
 
 
     //处理application/x-www-form-urlencoded提交的请求

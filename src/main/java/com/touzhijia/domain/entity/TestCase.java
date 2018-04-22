@@ -49,10 +49,10 @@ public class TestCase implements Serializable{
     private String caseDescription ;
 
 
-    /**
-     * 测试结果
-     */
-    private TestResult testResult ;
+//    /**
+//     * 测试结果
+//     */
+//    private TestResult testResult ;
 
     /**
      * 创建时间

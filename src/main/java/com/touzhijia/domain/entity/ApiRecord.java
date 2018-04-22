@@ -1,37 +1,21 @@
 package com.touzhijia.domain.entity;
 
 import lombok.Data;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by chenxl on 2018/3/1.
+ * 接口请求记录表
+ * Created by chenxl on 2018/4/18.
  */
 
-@Entity
 @Data
-@Table(name = "test_step")
-@DynamicInsert
-@DynamicUpdate
-public class TestStep implements Serializable {
-
-    public static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    /**
-     * 测试步骤编号
-     */
-    private Integer stepId;
+public class ApiRecord {
 
     /**
-     * 测试步骤名称
+     * 测试任务编号
      */
-    private String stepName;
+    private Integer taskId ;
 
     /**
      * 测试用例编号
@@ -52,11 +36,6 @@ public class TestStep implements Serializable {
      * 接口请求参数
      */
     private String requestParams;
-
-    /**
-     * 接口请求头信息
-     */
-    private String requestHeaders ;
 
     /**
      * 接口请求Body
@@ -100,7 +79,7 @@ public class TestStep implements Serializable {
      * 测试结果
      * 0 测试失败   1 测试成功
      */
-    private TestResult testResult;
+    private TestStep.TestResult testResult;
 
     /**
      * 创建时间
@@ -111,13 +90,5 @@ public class TestStep implements Serializable {
      * 更新时间
      */
     private Date updateTime;
-
-    /**
-     * 测试结果
-     */
-    public enum TestResult {
-        False,
-        PASS,;
-    }
 
 }

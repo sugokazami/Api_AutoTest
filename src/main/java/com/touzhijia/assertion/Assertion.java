@@ -1,6 +1,7 @@
 package com.touzhijia.assertion;
 
 import com.touzhijia.domain.entity.TestStep;
+import com.touzhijia.function.ParametersFactory;
 import com.touzhijia.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,11 +23,16 @@ public class Assertion {
         String[] checkStrings = testStep.getCheckString().split(",");
         boolean result = true;
         for (int i = 0; i < checkStrings.length; i++) {
+            if (checkStrings[i].contains("${")) {
+                checkStrings[i] = ParametersFactory.replaceCommonParam(checkStrings[i]);
+            }
             boolean checkValue = checker.checkValue(checkStrings[i], testStep.getResponseBody());
             if (checkValue) {
                 log.info("【检查点" + (i + 1) + "】验证成功");
+                log.info("-------------------------------");
             } else {
                 log.info("【检查点" + (i + 1) + "】验证失败");
+                log.info("-------------------------------");
             }
             if (checkValue == false) {
                 result = false;

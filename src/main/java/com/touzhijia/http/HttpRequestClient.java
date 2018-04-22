@@ -82,7 +82,7 @@ public class HttpRequestClient {
         }
 
         Response<String> response = ApiServiceClient.getApiService(baseUrl)
-                .get(request.getUrl())
+                .get(request.getUrl(), request.getHeaders())
                 .execute();
 
         return ResponseConverter.responseToResponseDTO(response);
@@ -101,7 +101,7 @@ public class HttpRequestClient {
         }
 
         Response<String> response = ApiServiceClient.getApiService(baseUrl)
-                .get(request.getUrl(), request.getParams())
+                .get(request.getUrl(), request.getParams(), request.getHeaders())
                 .execute();
 
         return this.converter(response);

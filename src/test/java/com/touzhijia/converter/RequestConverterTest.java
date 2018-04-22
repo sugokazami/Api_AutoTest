@@ -137,6 +137,9 @@ public class RequestConverterTest {
         for (int i = 0; i < testSteps.size(); i++) {
             try {
                 RequestDTO requestDTO = RequestConverter.testStepToRequestDTO(testSteps.get(i));
+                if(requestDTO.getUrl().startsWith("v3")){
+                    baseUrl = "http://api.tzj.net/" ;
+                }
                 HttpRequestClient httpRequestClient = new HttpRequestClient();
                 ResponseDTO responseDTO = httpRequestClient.execute(baseUrl, requestDTO);
                 testSteps.get(i).setResponseBody(responseDTO.getBody());
@@ -158,9 +161,9 @@ public class RequestConverterTest {
             }
             testStepRepository.save(testSteps.get(i));
             ParametersFactory.saveCommonParam(testSteps.get(i));
-            log.info(ParametersFactory.getParameterMap().toString());
-            log.info(String.valueOf(pass));
-            log.info(String.valueOf(fail));
         }
+        log.info("公共参数池:{}", ParametersFactory.getParameterMap().toString());
+        log.info("成功的步骤数:{}", String.valueOf(pass));
+        log.info("失败的步骤数:{}", String.valueOf(fail));
     }
 }

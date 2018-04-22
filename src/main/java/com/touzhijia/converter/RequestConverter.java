@@ -30,6 +30,12 @@ public class RequestConverter {
             requestDTO.setUrl(testStep.getRequestPath());
         }
 
+        if (StringUtils.isNotEmpty(testStep.getRequestHeaders()) && testStep.getRequestHeaders().contains("${")) {
+            requestDTO.setHeaders(MapConverterUtils.JsonToMap(ParametersFactory.replaceCommonParam(testStep.getRequestHeaders())));
+        } else {
+            requestDTO.setHeaders(MapConverterUtils.JsonToMap(testStep.getRequestHeaders()));
+        }
+
         if (StringUtils.isNotEmpty(testStep.getRequestBody()) && testStep.getRequestBody().contains("${")) {
             requestDTO.setBody(ParametersFactory.replaceCommonParam(testStep.getRequestBody()));
         } else {
