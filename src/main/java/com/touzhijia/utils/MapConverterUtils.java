@@ -23,7 +23,9 @@ public class MapConverterUtils {
             try {
                 map = JSON.parseObject(jsonStr, map.getClass());
             } catch (Exception e) {
-                logger.info("把Json字符串转换成Map出错", e);
+                //Json字符串格式不正确时会出现该错误，如少写了"{",少写引号 ;
+                logger.info("Json字符串转换成Map出错,错误信息:{}", e.getMessage());
+                e.printStackTrace();
                 return map;
             }
         } else {

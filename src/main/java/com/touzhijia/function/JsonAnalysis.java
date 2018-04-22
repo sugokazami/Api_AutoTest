@@ -32,7 +32,8 @@ public class JsonAnalysis {
                 value = JSONPath.read(json, expression);
                 return value == null ? null : value.toString();
             } catch (Exception e) {
-                log.info("解析出错");
+                //JSONPath表达式不正确导致无法进行解析，比如JSONPath语法错误:集合中只有5个元素，想取得第6个元素的值，此时会报该错误 ;
+                log.info("解析出错，错误信息:{}",e.getMessage());
                 e.printStackTrace();
             }
         }

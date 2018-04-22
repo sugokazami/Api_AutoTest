@@ -143,6 +143,7 @@ public class RequestConverterTest {
                 HttpRequestClient httpRequestClient = new HttpRequestClient();
                 ResponseDTO responseDTO = httpRequestClient.execute(baseUrl, requestDTO);
                 testSteps.get(i).setResponseBody(responseDTO.getBody());
+                ParametersFactory.saveCommonParam(testSteps.get(i));
                 boolean result = Assertion.assertEquals(testSteps.get(i));
                 if (result) {
                     log.info("【步骤" + (i + 1) + "测试成功】");
@@ -159,8 +160,9 @@ public class RequestConverterTest {
                 testSteps.get(i).setTestResult(TestResult.False);
                 pass++;
             }
+//            ParametersFactory.saveCommonParam(testSteps.get(i));
             testStepRepository.save(testSteps.get(i));
-            ParametersFactory.saveCommonParam(testSteps.get(i));
+            Thread.sleep(1000);
         }
         log.info("公共参数池:{}", ParametersFactory.getParameterMap().toString());
         log.info("成功的步骤数:{}", String.valueOf(pass));
