@@ -29,6 +29,7 @@ public class MapConverterUtils {
                 return map;
             }
         } else {
+            //直接返回空的map实例,调用是需要判断size,不用判断null ;
             return map;
         }
         return map;

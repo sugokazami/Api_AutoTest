@@ -90,7 +90,7 @@ public class TestStepRepositoryTest {
     @Test
     public void getByCaseId() throws Exception {
         TestStep testStep1 = new TestStep();
-        testStep1.setStepName("登录");
+        testStep1.setStepName("注册");
         testStep1.setCaseId(3);
         testStep1.setRequestPath("user_account.svc/api/accounts");
         testStep1.setRequestMethod("post with row");
@@ -124,7 +124,7 @@ public class TestStepRepositoryTest {
         testStep3.setRequestMethod("get");
         testStep3.setRequestHeaders("X-Auth-Token:${X-Auth-Token}");
         testStep3.setNeedVerifyValue(true);
-        testStep3.setCheckString("$.totalSize=5");
+        testStep3.setCheckString("$.totalSize=5,$.list[0].title:30元投资券,$.list[1].title:50元投资券,$.list[2].title:8元投资券,$.list[3].title:100元投资券,$.list[4].title:2%加息券");
         testStepRepository.save(testStep3);
     }
 

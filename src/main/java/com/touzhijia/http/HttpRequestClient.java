@@ -34,10 +34,10 @@ public class HttpRequestClient {
      * @param request
      */
     public ResponseDTO execute(String baseUrl, RequestDTO request) {
-        ResponseDTO responseDTO = null;
+        ResponseDTO responseDTO;
         try {
             if (GET.equals(request.getMethod())) {
-                if (request.getParams() != null) {
+                if (request.getParams().size() > 0) {
                     responseDTO = this.executeGetWithParams(baseUrl, request);
                 } else {
                     responseDTO = this.executeGet(baseUrl, request);
@@ -120,7 +120,7 @@ public class HttpRequestClient {
         }
 
         Response<String> response = ApiServiceClient.getApiService(baseUrl)
-                .postWithForm(request.getUrl(), request.getParams())
+                .postWithForm(request.getUrl(), request.getParams(), request.getHeaders())
                 .execute();
 
         return this.converter(response);
@@ -139,7 +139,7 @@ public class HttpRequestClient {
         }
 
         Response<String> response = ApiServiceClient.getApiService(baseUrl)
-                .postWithRow(request.getUrl(), request.getBody())
+                .postWithRow(request.getUrl(), request.getBody(), request.getHeaders())
                 .execute();
 
         return this.converter(response);
@@ -159,7 +159,7 @@ public class HttpRequestClient {
         }
 
         Response<String> response = ApiServiceClient.getApiService(baseUrl)
-                .put(request.getUrl(), request.getBody())
+                .put(request.getUrl(), request.getBody(), request.getHeaders())
                 .execute();
 
         return this.converter(response);
@@ -178,7 +178,7 @@ public class HttpRequestClient {
         }
 
         Response<String> response = ApiServiceClient.getApiService(baseUrl)
-                .delete(request.getUrl())
+                .delete(request.getUrl(), request.getHeaders())
                 .execute();
 
         return this.converter(response);
@@ -197,7 +197,7 @@ public class HttpRequestClient {
         }
 
         Response<String> response = ApiServiceClient.getApiService(baseUrl)
-                .delete(request.getUrl(), request.getParams())
+                .delete(request.getUrl(), request.getParams(), request.getHeaders())
                 .execute();
 
         return this.converter(response);
