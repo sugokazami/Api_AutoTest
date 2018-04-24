@@ -47,7 +47,7 @@ public class HttpRequestClient {
             } else if (POST_WITH_PARAMS.equals(request.getMethod())) {
                 responseDTO = this.executePostWithParams(baseUrl, request);
             } else if (DELETE.equals(request.getMethod())) {
-                if (request.getParams() != null) {
+                if (request.getParams().size() > 0) {
                     responseDTO = this.executeDeleteWithParams(baseUrl, request);
                 } else {
                     responseDTO = this.executeDelete(baseUrl, request);
@@ -57,12 +57,14 @@ public class HttpRequestClient {
             } else {
                 log.info("未知的请求方式");
                 throw new RuntimeException("未知的请求方式");
+                // TODO: 2018/4/23
             }
 
         } catch (IOException e) {
-//            log.info("请求执行异常,请求路径:{},请求方法:{},异常信息:{}", request.getUrl(), request.getMethod(), e.getMessage());
-//            e.printStackTrace();
-            throw new RuntimeException("请求执行异常");
+            log.info("请求执行异常,请求路径:{},请求方法:{},异常信息:{}", request.getUrl(), request.getMethod(), e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("请求执行异常,异常信息:" + e.getMessage());
+            // TODO: 2018/4/23  
         }
 
         return responseDTO;

@@ -1,5 +1,6 @@
 package com.touzhijia.assertion;
 
+import com.touzhijia.domain.entity.TestRecord;
 import com.touzhijia.domain.entity.TestStep;
 import com.touzhijia.function.ParametersFactory;
 import com.touzhijia.utils.StringUtils;
@@ -13,20 +14,20 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Assertion {
 
-    public static boolean assertEquals(TestStep testStep) {
+    public static boolean assertEquals(TestRecord testRecord) {
 
-        if (StringUtils.isEmpty(testStep.getCheckString())) {
+        if (StringUtils.isEmpty(testRecord.getCheckString())) {
             // TODO: 2018/4/13
         }
 
-        ResponseChecker checker = new ResponseChecker(testStep);
-        String[] checkStrings = testStep.getCheckString().split(",");
+        ResponseChecker checker = new ResponseChecker(testRecord);
+        String[] checkStrings = testRecord.getCheckString().split(",");
         boolean result = true;
         for (int i = 0; i < checkStrings.length; i++) {
             if (checkStrings[i].contains("${")) {
                 checkStrings[i] = ParametersFactory.replaceCommonParam(checkStrings[i]);
             }
-            boolean checkValue = checker.checkValue(checkStrings[i], testStep.getResponseBody());
+            boolean checkValue = checker.checkValue(checkStrings[i], testRecord.getResponseBody());
             if (checkValue) {
                 log.info("【检查点" + (i + 1) + "】验证成功");
                 log.info("-------------------------------");

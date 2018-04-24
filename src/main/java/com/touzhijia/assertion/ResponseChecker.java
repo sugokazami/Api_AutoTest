@@ -2,7 +2,7 @@ package com.touzhijia.assertion;
 
 import com.alibaba.fastjson.JSON;
 import com.touzhijia.domain.entity.CheckBean;
-import com.touzhijia.domain.entity.TestStep;
+import com.touzhijia.domain.entity.TestRecord;
 import com.touzhijia.function.JsonAnalysis;
 import com.touzhijia.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +18,12 @@ import java.util.ArrayList;
 public class ResponseChecker {
 
 
-    private TestStep testStep;
+    private TestRecord testRecord;
 
     private ArrayList<CheckBean> checkList = new ArrayList<>();
 
-    public ResponseChecker(TestStep testStep) {
-        this.testStep = testStep;
+    public ResponseChecker(TestRecord testRecord) {
+        this.testRecord = testRecord;
     }
 
     /**
@@ -126,7 +126,7 @@ public class ResponseChecker {
             log.info("请求结果验证失败：期望结果为空或期望结果获取失败~~~");
             result = false;
         }
-        testStep.setCheckList(JSON.toJSONString(checkList));
+        testRecord.setCheckList(JSON.toJSONString(checkList));
         return result;
     }
 

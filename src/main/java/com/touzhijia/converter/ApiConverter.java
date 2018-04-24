@@ -1,27 +1,27 @@
 package com.touzhijia.converter;
 
-import com.touzhijia.domain.entity.ApiRecord;
+import com.touzhijia.domain.entity.TestRecord;
 import com.touzhijia.domain.entity.TestStep;
 
 /**
- * 请求转换类 TestStep --> ApiRecord
+ * 请求转换类 TestStep --> TestRecord
  * Created by chenxl on 2018/4/18.
  */
 
 public class ApiConverter {
 
-    public static ApiRecord testStepToApiRecord(TestStep testStep) {
-        ApiRecord apiRecord = new ApiRecord();
-        apiRecord.setCaseId(testStep.getCaseId());
-        apiRecord.setRequestPath(testStep.getRequestPath());
-        apiRecord.setRequestMethod(testStep.getRequestMethod());
-        apiRecord.setRequestParams(testStep.getRequestParams());
-        apiRecord.setRequestBody(testStep.getRequestBody());
-        apiRecord.setNeedTransfer(testStep.isNeedTransfer());
-        apiRecord.setTransferParams(testStep.getTransferParams());
-        apiRecord.setNeedVerifyValue(testStep.isNeedVerifyValue());
-        apiRecord.setCheckString(testStep.getCheckString());
+    public static TestRecord testStepToApiRecord(TestStep testStep) {
+        TestRecord testRecord = new TestRecord();
+        testRecord.setCaseId(testStep.getCaseId());
+        testRecord.setRequestPath(testStep.getRequestPath());
+        testRecord.setRequestMethod(testStep.getRequestMethod());
+        testRecord.setRequestParams(testStep.getRequestParams());
+        testRecord.setRequestBody(testStep.getRequestBody());
+        testRecord.setNeedTransfer(testStep.isNeedTransfer());
+        testRecord.setTransferParams(testStep.getTransferParams());
+        testRecord.setNeedVerifyValue(testStep.isNeedVerifyValue());
+        testRecord.setCheckString(testStep.getCheckString());
 
-        return apiRecord;
+        return testRecord;
     }
 }

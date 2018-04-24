@@ -37,6 +37,7 @@ public class ResponseConverter {
             }
             log.info("请求错误 --- > 错误码:{},  错误信息:{}",responseDTO.getCode(),responseDTO.getBody());
             throw new RuntimeException("失败原因:" + responseDTO.getBody()) ;
+            // TODO: 2018/4/23  
         }
 
         return responseDTO;

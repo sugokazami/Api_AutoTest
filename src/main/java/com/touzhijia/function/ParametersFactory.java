@@ -1,5 +1,6 @@
 package com.touzhijia.function;
 
+import com.touzhijia.domain.entity.TestRecord;
 import com.touzhijia.domain.entity.TestStep;
 import com.touzhijia.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -33,14 +34,14 @@ public class ParametersFactory {
     /**
      * 从请求返回的body信息中提取参数
      *
-     * @param testStep 测试步骤
+     * @param testRecord 测试步骤
      */
-    public static void saveCommonParam(TestStep testStep) throws IOException {
+    public static void saveCommonParam(TestRecord testRecord) throws IOException {
 
-        if (testStep != null) {
+        if (testRecord != null) {
             //获得需要提取参数的表达式
-            String transferParams = testStep.getTransferParams();
-            String responseBody = testStep.getResponseBody();
+            String transferParams = testRecord.getTransferParams();
+            String responseBody = testRecord.getResponseBody();
             if (transferParams != null && responseBody != null) {
                 String[] paramList = transferParams.split(",");
                 //从请求信息中提取相应的参数

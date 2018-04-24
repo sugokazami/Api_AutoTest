@@ -1,7 +1,6 @@
 package com.touzhijia.function;
 
-import com.touzhijia.domain.entity.TestStep;
-import com.touzhijia.function.ParametersFactory;
+import com.touzhijia.domain.entity.TestRecord;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,10 +56,10 @@ public class ParametersFactoryTest {
                 "\t}\n" +
                 "}" ;
 
-        TestStep testStep = new TestStep();
-        testStep.setResponseBody(boby) ;
-        testStep.setTransferParams("category = $.store.book[0].category ");
-        ParametersFactory.saveCommonParam(testStep);
+        TestRecord testRecord = new TestRecord();
+        testRecord.setResponseBody(boby) ;
+        testRecord.setTransferParams("category = $.store.book[0].category ");
+        ParametersFactory.saveCommonParam(testRecord);
         Map<String, String> parameterMap = ParametersFactory.getParameterMap();
         for (String key: parameterMap.keySet()) {
             assertEquals("category",key);
@@ -96,10 +95,10 @@ public class ParametersFactoryTest {
                 "    \"interestAmount\": null\n" +
                 "}" ;
 
-        TestStep testStep = new TestStep();
-        testStep.setResponseBody(boby) ;
-        testStep.setTransferParams("debtId = $.debtId");
-        ParametersFactory.saveCommonParam(testStep);
+        TestRecord testRecord = new TestRecord();
+        testRecord.setResponseBody(boby) ;
+        testRecord.setTransferParams("debtId = $.debtId");
+        ParametersFactory.saveCommonParam(testRecord);
         Map<String, String> parameterMap = ParametersFactory.getParameterMap();
         for (String key: parameterMap.keySet()) {
             System.out.println(key);

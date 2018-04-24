@@ -24,7 +24,7 @@ public class TestStepRepositoryTest {
     public void saveTestCase() {
 //        TestStep testStep = new TestStep();
 //        testStep.setStepName("借款人注册");
-//        testStep.setCaseId(2);
+//        testStep.setCaseId(1);
 //        testStep.setRequestPath("user_account.svc/api/accounts");
 //        testStep.setRequestMethod("post with row");
 //        testStep.setRequestBody("{\"telephone\":\"13373803569\",\"password\":\"cxl111111\",\"device\":\"pc\",\"platform\":\"touzhijia\",\"clientIP\":\"10.255.1.112\"}");
@@ -34,8 +34,9 @@ public class TestStepRepositoryTest {
 
 
         TestStep testStep1 = new TestStep();
+        testStep1.setStepId(1);
         testStep1.setStepName("申请");
-        testStep1.setCaseId(2);
+        testStep1.setCaseId(1);
         testStep1.setRequestPath("core.bid.svc/api/loans");
         testStep1.setRequestMethod("post with row");
         testStep1.setRequestBody("{\"uid\":\"mall-LEnLvfiEDA\",\"amount\":\"10\",\"borrowPeriod\":\"1\",\"borrowPeriodUnit\":\"月\"," +
@@ -51,8 +52,9 @@ public class TestStepRepositoryTest {
 
 
         TestStep testStep2 = new TestStep();
+        testStep2.setStepId(2);
         testStep2.setStepName("配置");
-        testStep2.setCaseId(2);
+        testStep2.setCaseId(1);
         testStep2.setRequestPath("core.bid.svc/api/debts/package");
         testStep2.setRequestMethod("post with row");
         testStep2.setRequestBody("{\"loanId\":\"${loanId}\",\"categoryId\":8}");
@@ -65,8 +67,9 @@ public class TestStepRepositoryTest {
 
 
         TestStep testStep3 = new TestStep();
+        testStep3.setStepId(3);
         testStep3.setStepName("审核");
-        testStep3.setCaseId(2);
+        testStep3.setCaseId(1);
         testStep3.setRequestPath("core.bid.svc/api/debts/${debtId}/verify");
         testStep3.setRequestMethod("put");
         testStep3.setRequestBody("{\"operator\":\"system\",\"description\":\"test\"}");
@@ -77,8 +80,9 @@ public class TestStepRepositoryTest {
 
 
         TestStep testStep4 = new TestStep();
+        testStep4.setStepId(4);
         testStep4.setStepName("上线");
-        testStep4.setCaseId(2);
+        testStep4.setCaseId(1);
         testStep4.setRequestPath("core.bid.svc/api/debts/${debtId}/online");
         testStep4.setRequestMethod("put");
         testStep4.setRequestBody("{\"operator\":\"system\",\"description\":\"test\"}");
@@ -90,8 +94,9 @@ public class TestStepRepositoryTest {
     @Test
     public void getByCaseId() throws Exception {
         TestStep testStep1 = new TestStep();
+        testStep1.setStepId(1);
         testStep1.setStepName("注册");
-        testStep1.setCaseId(3);
+        testStep1.setCaseId(2);
         testStep1.setRequestPath("user_account.svc/api/accounts");
         testStep1.setRequestMethod("post with row");
         testStep1.setRequestBody("{\"telephone\":\"13072758002\",\"password\":\"cxl111111\",\"device\":\"pc\",\"platform\":\"touzhijia\",\"clientIP\":\"10.255.1.112\"}");
@@ -104,8 +109,9 @@ public class TestStepRepositoryTest {
 
 
         TestStep testStep2 = new TestStep();
+        testStep2.setStepId(2);
         testStep2.setStepName("用户登录");
-        testStep2.setCaseId(3);
+        testStep2.setCaseId(2);
         testStep2.setRequestPath("v3/user/login");
         testStep2.setRequestMethod("post with row");
         testStep2.setRequestBody("{\"username\":\"${username}\",\"password\":\"cxl111111\"}");
@@ -118,8 +124,9 @@ public class TestStepRepositoryTest {
 
 
         TestStep testStep3 = new TestStep();
+        testStep3.setStepId(3);
         testStep3.setStepName("理财券列表");
-        testStep3.setCaseId(3);
+        testStep3.setCaseId(2);
         testStep3.setRequestPath("v3/account/vouchers");
         testStep3.setRequestMethod("get");
         testStep3.setRequestHeaders("X-Auth-Token:${X-Auth-Token}");

@@ -1,7 +1,6 @@
 package com.touzhijia.repository;
 
 import com.touzhijia.domain.entity.TestCase;
-import com.touzhijia.domain.entity.TestStep;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,12 +29,18 @@ public class TestCaseRepositoryTest {
     @Test
     public void testCase(){
         TestCase testCase = new TestCase();
-        testCase.setCaseName("登录");
+        testCase.setCaseName("债权上线");
         testCase.setProjectId(1);
-        testCase.setCaseDescription("完成登录操作");
-        //testCase.setTestResult(0);
-        TestCase save = testCaseRepository.save(testCase);
-        System.out.println(save);
+        testCase.setCaseDescription("投之家债权申请-配置-审核-上线操作");
+        TestCase testCase01 = testCaseRepository.save(testCase);
+        System.out.println(testCase01);
+
+        TestCase testCase02 = new TestCase();
+        testCase02.setCaseName("理财券列表测试");
+        testCase02.setProjectId(1);
+        testCase02.setCaseDescription("注册-用户登录-理财券列表操作");
+        TestCase testCase03 = testCaseRepository.save(testCase02);
+        System.out.println(testCase03);
     }
 
     @Test

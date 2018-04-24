@@ -31,7 +31,7 @@ public class RetrofitManagerTest {
 
     @Test
     public void testPost() {
-        String json = "{\"telephone\": \"13803623948\",\"password\": \"cxl111111\",\"device\": \"pc\",\"platform\": \"touzhijia\",\"clientIP\": \"10.255.1.112\"}";
+        String json = "{\"telephone\": \"13803623950\",\"password\": \"cxl111111\",\"device\": \"pc\",\"platform\": \"touzhijia\",\"clientIP\": \"10.255.1.112\"}";
         ApiService apiService = RetrofitManager.getInstance().create("http://a.io.tzj.net/", ApiService.class);
 
         Map<String, Object> map = new HashMap<>();
