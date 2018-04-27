@@ -16,49 +16,49 @@ import java.util.Map;
 public interface ApiService {
 
     //处理get请求
-    @GET("{url}")
-    Call<String> get(@Path("url") String url,
+    @GET
+    Call<String> get(@Url String url,
                      @HeaderMap Map<String, Object> headers);
 
 
     //处理有一个或多个参数的get请求
-    @GET("{url}")
-    Call<String> get(@Path("url") String url,
+    @GET
+    Call<String> get(@Url String url,
                      @QueryMap Map<String, Object> params,
                      @HeaderMap Map<String, Object> headers);
 
 
     //处理application/x-www-form-urlencoded提交的请求
     @FormUrlEncoded
-    @POST("{url}")
-    Call<String> postWithForm(@Path("url") String url,
+    @POST
+    Call<String> postWithForm(@Url String url,
                               @FieldMap Map<String, Object> params,
                               @HeaderMap Map<String, Object> headers);
 
 
     //处理application/json提交的请求
-    @POST("{url}")
-    Call<String> postWithRow(@Path("url") String url,
+    @POST
+    Call<String> postWithRow(@Url String url,
                              @Body String body,
                              @HeaderMap Map<String, Object> headers);
 
 
     //处理put请求
-    @PUT("{url}")
-    Call<String> put(@Path("url") String url,
+    @PUT
+    Call<String> put(@Url String url,
                      @Body String body,
                      @HeaderMap Map<String, Object> headers);
 
 
     //处理delete请求
-    @DELETE("{url}")
-    Call<String> delete(@Path("url") String url,
+    @DELETE
+    Call<String> delete(@Url String url,
                         @HeaderMap Map<String, Object> headers);
 
 
     //处理有一个或多个参数的delete请求
-    @DELETE("{url}")
-    Call<String> delete(@Path("url") String url,
+    @DELETE
+    Call<String> delete(@Url String url,
                         @QueryMap Map<String, Object> params,
                         @HeaderMap Map<String, Object> headers);
 

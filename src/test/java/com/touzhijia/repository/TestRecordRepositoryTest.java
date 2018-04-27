@@ -1,6 +1,7 @@
 package com.touzhijia.repository;
 
 import com.touzhijia.domain.entity.TestRecord;
+import com.touzhijia.domain.entity.TestStep;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class TestRecordRepositoryTest {
         testRecord1.setNeedTransfer(true);
         testRecord1.setTransferParams("username=$.username");
         testRecord1.setNeedVerifyValue(true);
-        testRecord1.setCheckString("$.password:cxl111111");
+        testRecord1.setCheckString("$.username:${username}");
         testRecordRepository.save(testRecord1);
 
 
@@ -65,7 +66,55 @@ public class TestRecordRepositoryTest {
 
 
     @Test
-    public void getByCaseId() throws Exception {
+    public void saveAccount() throws Exception {
+        TestRecord testRecord = new TestRecord();
+        testRecord.setTaskId(1);
+        testRecord.setStepName("用户注册");
+        testRecord.setCaseId(3);
+        testRecord.setRequestPath("user_account.svc/api/accounts");
+        testRecord.setRequestMethod("post with row");
+        testRecord.setRequestBody("{\"telephone\":\"13072758002\",\"password\":\"cxl111111\",\"device\":\"pc\",\"platform\":\"touzhijia\",\"clientIP\":\"10.255.1.112\"}");
+        testRecord.setNeedTransfer(true);
+        testRecord.setTransferParams("username=$.username,telephone=$.telephone");
+        testRecord.setNeedVerifyValue(true);
+        testRecord.setCheckString("$.username:${username}");
+        testRecordRepository.save(testRecord);
+
+        TestRecord testRecord1 = new TestRecord();
+        testRecord1.setTaskId(1);
+        testRecord1.setStepName("投之家-开通存管账户");
+        testRecord1.setCaseId(3);
+        testRecord1.setRequestPath("account.deposit.svc/api/accounts");
+        testRecord1.setRequestMethod("post with row");
+        testRecord1.setRequestBody("{\"failUrl\": \"http://merchant.tzj.cc/borrower/client/register/record/guarantee?uid=mall-izGCGUnyQj\",\"successUrl\": \"http://merchant.tzj.cc/borrower/client/home/personal?uid=mall-izGCGUnyQj\",\"roleType\":\"1\",\"uid\": \"${username}\",\"userIp\": \"10.255.3.114\"}");
+        testRecord1.setNeedTransfer(true);
+        testRecord1.setTransferParams("orderId=$.orderId");
+        testRecord1.setNeedVerifyValue(true);
+        testRecord1.setCheckString("$.uid:${username}");
+        testRecordRepository.save(testRecord1);
+
+        TestRecord testRecord2 = new TestRecord();
+        testRecord2.setTaskId(1);
+        testRecord2.setStepName("发送短信");
+        testRecord2.setCaseId(3);
+        testRecord2.setRequestPath("ecpg/requestSMS");
+        testRecord2.setRequestMethod("get");
+        testRecord2.setRequestParams("{\"orderid\":\"${orderId}\",\"phone\":\"${telephone}\"}");
+        testRecord2.setNeedTransfer(false);
+        testRecord2.setNeedVerifyValue(false);
+        testRecordRepository.save(testRecord2);
+
+        TestRecord testRecord3 = new TestRecord();
+        testRecord3.setTaskId(4);
+        testRecord3.setStepName("上饶银行-开通存管账户");
+        testRecord3.setCaseId(3);
+        testRecord3.setRequestPath("ecpg/open/submit");
+        testRecord3.setRequestMethod("post with params");
+        testRecord3.setRequestParams("{\"name\":\"陈小清\",\"idNo\":\"421122199008010807\",\"exAcctNo\":\"6214850272720807\",\"encpin\":\"QnSLjFYMS79Sbkk4I6THCvelcUAHVPRhgOaJeJ2HAGTgjSrTO4xGf3QzWLKt+LLKspzH4XPT2fxe82NlLzLNNQ3qxuE5rWn7Tc5Iu1BZxRGUVWfej3tt/MQZry4Q7KNXdUy7mZOG3uRKov/4zA1DxOFw+WcfdWIHnn9WdTXu+JnCLpnfiNXEPJZ1P8iD/MfB9ixTw4bx5W81g9r1aWx/jCnkuaTc7JicSQM1u6to3BB8u055KIv1aOZ+i4LTHnfbBgrPTpg2RExLZSc+t72HtRqAZ4T3dQa2lMMpi7NMUTCRY91ymEAbL2P65/FzR87nzQxTJPsGFHchJ1fEPQxHIa6Sib6T8EOMlt/t3bfcEFIlnLbBssbK+X89XkZWgWsk+1VBx66T5UdrFpddE2rpNoo3LUXqB/he03w/rh1nD3G3jrHKfQiJYWnz0ynCamTtWR5bNXZhIFrKN6QixdsOyQ==\",\"code\":\"123456\",\"orderid\":\"${orderId}\"}");
+        testRecord3.setNeedTransfer(false);
+        testRecord3.setNeedVerifyValue(false);
+        testRecordRepository.save(testRecord3);
+
     }
 
 }

@@ -105,7 +105,7 @@ public class ResponseChecker {
                         String actualValue = parse(json, expression);
                         CheckBean<Double> checkBean = null;
 
-                        if (actualValue.equals(expectValue)) {
+                        if (expectValue.equals(actualValue)) {
                             result = true;
                             checkBean = new CheckBean(checkName, actualValue, expectValue, "字段校验通过");
                             log.info("实际结果:{},期望结果:{}", actualValue, expectValue);
@@ -157,6 +157,6 @@ public class ResponseChecker {
     public String parse(String json, String expression) {
         JsonAnalysis jsonAnalysis = new JsonAnalysis();
 
-        return jsonAnalysis.JSONPath(json, expression);
+        return jsonAnalysis.JSONPath(json, expression) == null ? "" : jsonAnalysis.JSONPath(json, expression);
     }
 }

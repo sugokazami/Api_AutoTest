@@ -9,6 +9,7 @@ import com.touzhijia.function.ParametersFactory;
 import com.touzhijia.http.HttpRequestClient;
 import com.touzhijia.repository.TestRecordRepository;
 import com.touzhijia.repository.TestStepRepository;
+import com.touzhijia.utils.MapConverterUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.touzhijia.domain.entity.TestRecord.TestResult;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +35,7 @@ public class RequestConverterTest {
     private TestStepRepository testStepRepository;
 
     @Autowired
-    private TestRecordRepository testRecordRepository ;
+    private TestRecordRepository testRecordRepository;
 
     private int pass = 0;
 
@@ -182,8 +184,11 @@ public class RequestConverterTest {
         for (int i = 0; i < testRecords.size(); i++) {
             try {
                 RequestDTO requestDTO = RequestConverter.testStepToRequestDTO(testRecords.get(i));
-                if(requestDTO.getUrl().startsWith("v3")){
-                    baseUrl = "http://api.tzj.net/" ;
+                if (requestDTO.getUrl().startsWith("v3")) {
+                    baseUrl = "http://api.tzj.net/";
+                }
+                if (requestDTO.getUrl().startsWith("ecpg")) {
+                    baseUrl = "https://testecas.srbank.cn/";
                 }
                 HttpRequestClient httpRequestClient = new HttpRequestClient();
                 ResponseDTO responseDTO = httpRequestClient.execute(baseUrl, requestDTO);
@@ -203,7 +208,7 @@ public class RequestConverterTest {
             } catch (RuntimeException e) {
                 log.info("【步骤" + (i + 1) + "测试失败】:{}", testRecords.get(i).getStepName());
                 testRecords.get(i).setTestResult(TestResult.False);
-                pass++;
+                fail++;
             }
 //            ParametersFactory.saveCommonParam(testSteps.get(i));
             testRecordRepository.save(testRecords.get(i));
@@ -212,5 +217,37 @@ public class RequestConverterTest {
         log.info("公共参数池:{}", ParametersFactory.getParameterMap().toString());
         log.info("成功的步骤数:{}", String.valueOf(pass));
         log.info("失败的步骤数:{}", String.valueOf(fail));
+    }
+
+    @Test
+    public void testCheck04() throws Exception {
+       // https://www.baifubao.com/callback?cmd=1059&callback=phone&phone=13072759893
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("cmd", "1059");
+        map.put("callback", "phone");
+        map.put("phone", "13072759893");
+        String baseUrl = "https://www.baifubao.com/";
+        RequestDTO requestDTO = new RequestDTO();
+        requestDTO.setUrl("callback");
+        requestDTO.setMethod("get");
+        requestDTO.setParams(map);
+        requestDTO.setHeaders(map);
+        HttpRequestClient httpRequestClient = new HttpRequestClient();
+        ResponseDTO responseDTO = httpRequestClient.execute(baseUrl, requestDTO);
+    }
+
+    @Test
+    public void testCheck05() throws Exception {
+        //https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=13072759893
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("tel", "13072759893");
+        String baseUrl = "https://tcc.taobao.com/";
+        RequestDTO requestDTO = new RequestDTO();
+        requestDTO.setUrl("cc/json/mobile_tel_segment.htm");
+        requestDTO.setMethod("get");
+        requestDTO.setParams(map);
+        requestDTO.setHeaders(map);
+        HttpRequestClient httpRequestClient = new HttpRequestClient();
+        ResponseDTO responseDTO = httpRequestClient.execute(baseUrl, requestDTO);
     }
 }
