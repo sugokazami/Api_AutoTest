@@ -2,10 +2,11 @@ package com.touzhijia.domain.enums;
 
 /**
  * Created by chenxl on 2018/3/1.
+ * 自定义响应数据结构
  */
 public enum ResultEnum {
-    SUCCESS(1,"success"),
-    FAIL(0,"error") ,
+    SUCCESS(200,"success"),
+    FAIL(500,"error") ,
     SYSTEM_ERROR(-1,"未知错误"),
 
     ;

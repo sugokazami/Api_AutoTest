@@ -1,4 +1,4 @@
-CREATE DATABASE `tzj_auto_test`;
+CREATE DATABASE `auto_test`;
 
 USE `tzj_auto_test`;
 
