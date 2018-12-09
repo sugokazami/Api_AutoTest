@@ -15,7 +15,7 @@ public class MD5Utils {
 		return newstr;
 	}
 
-	public static void maiadn(String[] args) {
+	public static void main(String[] args) {
 		try {
 			String md5 = getMD5Str("cxl");
 			System.out.println(md5);
