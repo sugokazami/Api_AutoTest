@@ -28,9 +28,9 @@ public class UserController {
     @PostMapping("/register")
     public Result register(@RequestBody User user, HttpServletResponse response) throws Exception {
         System.out.println(user.getUserName());
-        Map<String, String> map = userService.register(user.getUserName(), user.getPassWord());
+        Map<String, Object> map = userService.register(user.getUserName(), user.getPassWord());
         if (map.containsKey("token")){
-            Cookie cookie = new Cookie("token", map.get("token"));
+            Cookie cookie = new Cookie("token", (String) map.get("token"));
             cookie.setPath("/");
             response.addCookie(cookie);
             return ResultUtils.success(map) ;

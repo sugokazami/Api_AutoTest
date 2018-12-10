@@ -40,8 +40,8 @@ public class UserService {
      * @return
      * @throws Exception
      */
-    public Map<String, String> register(String userName, String passWord) throws Exception {
-        Map<String, String> map = new HashMap<>();
+    public Map<String, Object> register(String userName, String passWord) throws Exception {
+        Map<String, Object> map = new HashMap<>();
         if (StringUtils.isEmpty(userName)) {
             map.put("msg", "用户名不能为空");
             return map;
@@ -70,6 +70,8 @@ public class UserService {
         //注册完成后下发token之后自动登录
         String token = addLoginToken(user.getId());
         map.put("token", token);
+        map.put("info",user
+        ) ;
 
         return map;
 
