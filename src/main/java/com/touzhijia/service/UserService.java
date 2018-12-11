@@ -1,5 +1,6 @@
 package com.touzhijia.service;
 
+import com.touzhijia.domain.dto.UserDTO;
 import com.touzhijia.domain.entity.LoginToken;
 import com.touzhijia.domain.entity.User;
 import com.touzhijia.repository.TokenRepository;
@@ -7,6 +8,7 @@ import com.touzhijia.repository.UserRepository;
 import com.touzhijia.utils.MD5Utils;
 import com.touzhijia.utils.StringUtils;
 import org.n3r.idworker.Sid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +68,9 @@ public class UserService {
         user.setNickName(userName);
         user.setFaceImage("");
         userRepository.save(user);
+
+        UserDTO userDTO = new UserDTO() ;
+        BeanUtils.copyProperties(user,userDTO);
 
         //注册完成后下发token之后自动登录
         String token = addLoginToken(user.getId());

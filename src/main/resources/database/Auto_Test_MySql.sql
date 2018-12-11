@@ -1,6 +1,40 @@
 CREATE DATABASE `auto_test`;
 
-USE `tzj_auto_test`;
+USE `auto_test`;
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+	`id`					 VARCHAR(64) 	 NOT NULL 			 COMMENT '用户id,主键',
+  `username`     VARCHAR(20)   NOT NULL      	 COMMENT '用户名' ,
+  `password`     VARCHAR(64)   NOT NULL				 COMMENT '用户密码' ,
+  `nickname`     VARCHAR(20)   NOT NULL      	 COMMENT '用户昵称' ,
+  `face_image`   VARCHAR(255)  NULL      	     COMMENT '用户头像' ,
+  `salt`				 VARCHAR(32)   NOT NULL				 COMMENT '随机salt值',
+  `role`         VARCHAR(32)   NULL						 COMMENT '用户角色' ,
+  `cid`					 VARCHAR(64)   NULL						 COMMENT '用户设备id' ,
+  `create_time`  TIMESTAMP     NULL            DEFAULT CURRENT_TIMESTAMP        COMMENT '创建时间',
+  `update_time`  TIMESTAMP     NULL            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  COMMENT '更新时间' ,
+
+	PRIMARY KEY (`id`)
+)
+	ENGINE = InnoDB
+  DEFAULT CHARSET = utf8
+  COMMENT '用户表';
+
+DROP TABLE IF EXISTS `login_token`;
+CREATE TABLE `login_token` (
+	`id`					 INT        	 NOT NULL 			 AUTO_INCREMENT       COMMENT 'id',
+  `user_id`      VARCHAR(20)   NOT NULL      											  COMMENT '用户id' ,
+  `expired`      TIMESTAMP     NULL                                 DEFAULT CURRENT_TIMESTAMP        COMMENT '过期时间',
+  `status`       INT         	 NULL                                 COMMENT '状态' ,
+  `token`        VARCHAR(255)  NOT NULL      	                      COMMENT 'token' ,
+  `create_time`  TIMESTAMP     NULL                                 DEFAULT CURRENT_TIMESTAMP        COMMENT '创建时间',
+  `update_time`  TIMESTAMP     NULL                                 DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  COMMENT '更新时间' ,
+	PRIMARY KEY (`id`)
+)
+	ENGINE = InnoDB
+  DEFAULT CHARSET = utf8
+  COMMENT 'token表';
 
 DROP TABLE IF EXISTS `test_project`;
 CREATE TABLE `test_project` (
