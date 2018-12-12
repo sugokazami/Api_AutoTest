@@ -1,5 +1,6 @@
 package com.touzhijia.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -25,12 +26,14 @@ public class User {
     /**
      * 用户名
      */
+    @JsonProperty("username")
     @Column(name = "username")
     private String userName ;
 
     /**
      * 用户密码
      */
+    @JsonProperty("password")
     @Column(name = "password")
     private String passWord ;
 
