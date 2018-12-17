@@ -37,4 +37,10 @@ public class UserDTO {
     @JsonProperty("faceimage")
     private String faceImage ;
 
+
+    /**
+     * token
+     */
+    private String token ;
+
 }

@@ -1,8 +1,9 @@
 package com.touzhijia.controller;
 
 import com.touzhijia.domain.Result;
+import com.touzhijia.domain.dto.UserDTO;
 import com.touzhijia.domain.entity.User;
-import com.touzhijia.service.UserService;
+import com.touzhijia.service.Impl.UserServiceImpl;
 import com.touzhijia.utils.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 /**
  * Created by sugo on 2018/12/9.
@@ -23,20 +23,29 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private UserService userService ;
+    private UserServiceImpl userService;
 
     @PostMapping("/register")
     public Result register(@RequestBody User user, HttpServletResponse response) throws Exception {
-        System.out.println(user.getUserName());
-        Map<String, Object> map = userService.register(user.getUserName(), user.getPassWord());
-        if (map.containsKey("token")){
-            Cookie cookie = new Cookie("token", (String) map.get("token"));
+        UserDTO userDTO = userService.register(user.getUserName(), user.getPassWord());
+        if (userDTO != null) {
+            Cookie cookie = new Cookie("token", userDTO.getToken());
             cookie.setPath("/");
             response.addCookie(cookie);
-            return ResultUtils.success(map) ;
-        }else {
-            return ResultUtils.success(map) ;
         }
+        return ResultUtils.success(userDTO);
     }
 
+    @PostMapping("/login")
+    public Result login(@RequestBody User user) throws Exception {
+        UserDTO userDTO = userService.login(user.getUserName(), user.getPassWord());
+        return ResultUtils.success(userDTO);
+    }
+
+    @PostMapping("logout")
+    public Result logout(String userId) {
+        //将该用户的Token移除
+        //todo
+        return ResultUtils.success() ;
+    }
 }
