@@ -9,6 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface TokenRepository extends JpaRepository<LoginToken,Integer> {
 
-    LoginToken getByUserName(String userId) ;
 
 }

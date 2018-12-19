@@ -11,7 +11,6 @@ import com.touzhijia.constant.PropertiesConstant;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
-import java.util.UUID;
 
 @Slf4j
 public class AliyunOSSUtils {
@@ -35,7 +34,7 @@ public class AliyunOSSUtils {
             }
 
             //创建文件路径
-            String fileUrl = PropertiesConstant.FILE_PATH + "/" +file.getName();
+            String fileUrl = PropertiesConstant.FILE_PATH + file.getName();
             //上传文件
             PutObjectResult result = ossClient.putObject(new PutObjectRequest(PropertiesConstant.BUCKET_NAME, fileUrl, file));
             //设置权限 这里是公开读
