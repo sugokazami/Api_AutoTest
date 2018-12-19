@@ -4,6 +4,7 @@ package com.touzhijia.controller;
 import com.touzhijia.constant.PropertiesConstant;
 import com.touzhijia.domain.Result;
 import com.touzhijia.utils.AliyunOSSUtils;
+import com.touzhijia.utils.FileUtils;
 import com.touzhijia.utils.ResultUtils;
 import com.touzhijia.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +26,8 @@ public class UploadController {
 
     @PostMapping("upload")
     public Result upload(@RequestParam("file") MultipartFile file) throws IOException {
-        String path = System.getProperty("user.dir");
         String fileName = file.getOriginalFilename();
-        File newFile = new File(path + "/" + fileName);
+        File newFile = new File(FileUtils.getRootPath("static"),fileName);
         String accessoryPath = null ;
         if (!file.isEmpty()) {
             if (StringUtils.isNotEmpty(fileName.trim())) {
