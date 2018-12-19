@@ -1,12 +1,15 @@
 package com.touzhijia.controller;
 
 
+import com.touzhijia.constant.PropertiesConstant;
 import com.touzhijia.domain.Result;
+import com.touzhijia.utils.AliyunOSSUtils;
 import com.touzhijia.utils.ResultUtils;
 import com.touzhijia.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,32 +24,17 @@ import java.io.IOException;
 public class UploadController {
 
     @PostMapping("upload")
-    public Result upload(MultipartFile file) {
+    public Result upload(@RequestParam("file") MultipartFile file) throws IOException {
+        String path = System.getProperty("user.dir");
+        String fileName = file.getOriginalFilename();
+        File newFile = new File(path + "/" + fileName);
+        String accessoryPath = null ;
         if (!file.isEmpty()) {
-            String fileName = file.getOriginalFilename();
             if (StringUtils.isNotEmpty(fileName.trim())) {
-                File newFile = new File(fileName);
-                FileOutputStream out = null ;
-                try {
-                    out = new FileOutputStream(newFile);
-                    out.write(file.getBytes());
-
-                } catch (FileNotFoundException e) {
-                    log.info("文件没有找到");
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }finally {
-                    if (out != null){
-                        try {
-                            out.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
+                file.transferTo(newFile);
+                accessoryPath = AliyunOSSUtils.upload(newFile);
             }
         }
-        return ResultUtils.success(file.getOriginalFilename());
+        return ResultUtils.success(accessoryPath);
     }
 }
