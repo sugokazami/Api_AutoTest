@@ -6,7 +6,7 @@ import com.sugo.domain.entity.User;
 import com.sugo.domain.enums.ResultEnum;
 import com.sugo.exception.BusinessException;
 import com.sugo.repository.TokenRepository;
-import com.sugo.repository.UserRepository;
+import com.sugo.repository.UserDao;
 import com.sugo.service.UserService;
 import com.sugo.utils.MD5Utils;
 import com.sugo.utils.StringUtils;
@@ -27,10 +27,10 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private TokenRepository tokenRepository;
 
     @Autowired
-    private TokenRepository tokenRepository;
+    private UserDao userDao;
 
     @Autowired
     private Sid sid;
@@ -62,10 +62,10 @@ public class UserServiceImpl implements UserService {
         //保存用户,注册信息
         User user = new User();
         user.setId(sid.nextShort());
-        user.setUserName(userName);
+        user.setUsername(userName);
         user.setSalt(UUID.randomUUID().toString().substring(0, 5));
-        user.setPassWord(MD5Utils.getMD5Str(passWord + user.getSalt()));
-        user.setNickName(userName);
+        user.setPassword(MD5Utils.getMD5Str(passWord + user.getSalt()));
+        user.setNickname(userName);
         user.setFaceImage("");
         saveUser(user);
 
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(ResultEnum.USERNAME_NOT_EXISTS);
         }
 
-        if (!MD5Utils.getMD5Str(passWord + userResult.getSalt()).equals(userResult.getPassWord())) {
+        if (!MD5Utils.getMD5Str(passWord + userResult.getSalt()).equals(userResult.getPassword())) {
             throw new BusinessException(ResultEnum.PASSWORD_INVALID);
         }
 
@@ -143,12 +143,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User queryUserName(String username) {
-        return userRepository.getByUserName(username);
+        return userDao.getByUserName(username);
     }
 
     @Transactional(Transactional.TxType.REQUIRED)
     @Override
     public void saveUser(User user) {
-        userRepository.save(user);
+        userDao.insertUser(user);
     }
 }

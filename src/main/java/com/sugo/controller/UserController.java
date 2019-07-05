@@ -24,7 +24,7 @@ public class UserController {
 
     @PostMapping("/register")
     public Result register(@RequestBody User user, HttpServletResponse response) throws Exception {
-        UserDTO userDTO = userService.register(user.getUserName(), user.getPassWord());
+        UserDTO userDTO = userService.register(user.getUsername(), user.getPassword());
         if (userDTO != null) {
             Cookie cookie = new Cookie("token", userDTO.getToken());
             cookie.setPath("/");
@@ -35,13 +35,13 @@ public class UserController {
 
     @PostMapping("/login")
     public Result login(@RequestBody User user) throws Exception {
-        UserDTO userDTO = userService.login(user.getUserName(), user.getPassWord());
+        UserDTO userDTO = userService.login(user.getUsername(), user.getPassword());
         return ResultUtils.success(userDTO);
     }
 
     @PostMapping("/log")
     public Result log(User user) throws Exception {
-        UserDTO userDTO = userService.login(user.getUserName(), user.getPassWord());
+        UserDTO userDTO = userService.login(user.getUsername(), user.getPassword());
         return ResultUtils.success(userDTO);
     }
 
