@@ -1,4 +1,4 @@
-package com.sugo.repository;
+package com.sugo.dao;
 
 import com.sugo.domain.entity.LoginToken;
 import org.springframework.data.jpa.repository.JpaRepository;

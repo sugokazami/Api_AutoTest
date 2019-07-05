@@ -1,4 +1,4 @@
-package com.sugo.repository;
+package com.sugo.dao;
 
 import com.sugo.domain.entity.TestCase;
 import lombok.extern.slf4j.Slf4j;

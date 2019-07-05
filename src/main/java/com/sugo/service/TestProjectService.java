@@ -2,7 +2,7 @@ package com.sugo.service;
 
 
 import com.sugo.domain.entity.TestProject;
-import com.sugo.repository.TestProjectRepository;
+import com.sugo.dao.TestProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.sugo.service;
 
 import com.sugo.domain.entity.TestCase;
-import com.sugo.repository.TestCaseRepository;
+import com.sugo.dao.TestCaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

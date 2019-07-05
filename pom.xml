@@ -15,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.10.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/> <!-- lookup parent from dao -->
 	</parent>
 
 	<properties>
@@ -154,23 +154,23 @@
 	</dependencies>
 
 	<!--<repositories>-->
-		<!--<repository>-->
+		<!--<dao>-->
 			<!--<id>snapshots</id>-->
 			<!--<name>Snapshot</name>-->
 			<!--<url>http://nexus.oa.com/nexus/content/repositories/snapshots</url>-->
-		<!--</repository>-->
+		<!--</dao>-->
 
-		<!--<repository>-->
+		<!--<dao>-->
 			<!--<id>releases</id>-->
 			<!--<name>Release</name>-->
 			<!--<url>http://nexus.oa.com/nexus/content/repositories/releases</url>-->
-		<!--</repository>-->
+		<!--</dao>-->
 
-		<!--<repository>-->
+		<!--<dao>-->
 			<!--<id>public</id>-->
 			<!--<name>Public</name>-->
 			<!--<url>http://nexus.oa.com/nexus/content/repositories/public</url>-->
-		<!--</repository>-->
+		<!--</dao>-->
 	<!--</repositories>-->
 
 	<repositories>
